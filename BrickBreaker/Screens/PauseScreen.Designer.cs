@@ -37,27 +37,28 @@
             this.exitButton.BackColor = System.Drawing.Color.White;
             this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exitButton.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(344, 474);
+            this.exitButton.Font = new System.Drawing.Font("alphabetized cassette tapes", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.Location = new System.Drawing.Point(457, 610);
             this.exitButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(272, 120);
+            this.exitButton.Size = new System.Drawing.Size(324, 125);
             this.exitButton.TabIndex = 2;
-            this.exitButton.Text = "Exit";
+            this.exitButton.Text = "exit";
             this.exitButton.UseVisualStyleBackColor = false;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
             // resumeButton
             // 
             this.resumeButton.BackColor = System.Drawing.Color.White;
             this.resumeButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.resumeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.resumeButton.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resumeButton.Location = new System.Drawing.Point(353, 296);
+            this.resumeButton.Font = new System.Drawing.Font("alphabetized cassette tapes", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resumeButton.Location = new System.Drawing.Point(457, 373);
             this.resumeButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.resumeButton.Name = "resumeButton";
-            this.resumeButton.Size = new System.Drawing.Size(272, 120);
+            this.resumeButton.Size = new System.Drawing.Size(324, 134);
             this.resumeButton.TabIndex = 3;
-            this.resumeButton.Text = "Resume";
+            this.resumeButton.Text = "resume";
             this.resumeButton.UseVisualStyleBackColor = false;
             this.resumeButton.Click += new System.EventHandler(this.resumeButton_Click);
             // 
@@ -72,7 +73,7 @@
             this.Controls.Add(this.exitButton);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "PauseScreen";
-            this.Size = new System.Drawing.Size(938, 675);
+            this.Size = new System.Drawing.Size(1200, 846);
             this.ResumeLayout(false);
 
         }

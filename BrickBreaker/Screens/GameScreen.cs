@@ -22,10 +22,13 @@ namespace BrickBreaker
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, pauseArrowDown;
 
+     
+
         // Game values
         int lives;
         int bricksBroken;
         int score;
+        
         
 
         // constants
@@ -46,6 +49,7 @@ namespace BrickBreaker
         SolidBrush blockBrush = new SolidBrush(Color.Black);
         SolidBrush blockBrush2 = new SolidBrush(Color.White);
         SolidBrush shadowBrush = new SolidBrush(Color.LightGray);
+    
 
         #endregion
 
@@ -154,17 +158,17 @@ namespace BrickBreaker
                 paddle.Move("right");
             }
             if (pauseArrowDown)
-            {
-                
+            {               
                 PauseScreen ps = new PauseScreen();
                 Form form = this.FindForm();
         
                 gameTimer.Enabled = false;
+               
 
                 form.Controls.Add(ps);
                 form.Controls.Remove(this);
                 
-                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
+               ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
             }
 
             // Move ball
@@ -203,7 +207,7 @@ namespace BrickBreaker
                     if (blocks.Count == 0)
                     {
                         gameTimer.Enabled = false;
-                        OnEnd();
+                        OnEnd();    
                     }
 
                     break;
@@ -230,10 +234,9 @@ namespace BrickBreaker
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            var g = e.Graphics;
-            
+
+
             // Draws paddle
-            //yeet
             paddleBrush.Color = paddle.colour;
             e.Graphics.FillRectangle(shadowBrush, paddle.x + 3, paddle.y + 3, paddle.width, paddle.height);
             e.Graphics.FillRectangle(blockBrush, paddle.x, paddle.y, paddle.width, paddle.height);
@@ -242,20 +245,16 @@ namespace BrickBreaker
             // Draws blocks
 
             foreach (Block b in blocks)
-                {
+            {
                 e.Graphics.FillRectangle(shadowBrush, b.x + 3, b.y + 3, b.width, b.height);
                 e.Graphics.FillRectangle(blockBrush, b.x, b.y, b.width, b.height);
-               e.Graphics.FillRectangle(blockBrush2, b.x + 1, b.y + 1, b.width - 2, b.height - 2);
-            }
+                e.Graphics.FillRectangle(blockBrush2, b.x + 1, b.y + 1, b.width - 2, b.height - 2);
                 
-            
-
+            }
             // Draws ball
-           e.Graphics.FillEllipse(shadowBrush, ball.x + 3, ball.y + 3, ball.size, ball.size);
+            e.Graphics.FillEllipse(shadowBrush, ball.x + 3, ball.y + 3, ball.size, ball.size);
             e.Graphics.FillEllipse(blockBrush, ball.x, ball.y, ball.size, ball.size);
             e.Graphics.FillEllipse(blockBrush2, ball.x + 1, ball.y + 1, ball.size - 2, ball.size - 2);
- 
-
         }
 
         public static void ChangeSpeeds (int xSpeed, int ySpeed, int paddleSpeed)
