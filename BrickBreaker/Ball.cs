@@ -50,9 +50,6 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(paddleRec))
             {
-                ballRec.X -= xSpeed;
-                ballRec.Y -= ySpeed;
-
                 string side = CollisionSide(paddleRec);
 
                 if (side == "top")
@@ -98,6 +95,10 @@ namespace BrickBreaker
 
                     xSpeed = resultSpeed;
 
+                }
+                else if (side == "left" || side == "right")
+                {
+                    xSpeed += p.speed;
                 }
             }
         }
