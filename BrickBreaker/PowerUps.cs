@@ -25,6 +25,8 @@ namespace BrickBreaker
 
             y += 5;
         }
+        
+
         public bool Collision (Paddle p)
         {
             Rectangle a = new Rectangle(x, y, 5, 5);
