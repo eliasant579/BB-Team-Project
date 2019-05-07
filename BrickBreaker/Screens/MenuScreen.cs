@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BrickBreaker.Screens;
 
 namespace BrickBreaker
 {
@@ -36,9 +37,7 @@ namespace BrickBreaker
 
         private void TwoplayerButton_Click(object sender, EventArgs e)
         {
-            //Sets 2 Player to true
-            GameScreen.Twoplayer = true;
-            GameScreen gs = new GameScreen();
+            TwoPlayer  gs = new TwoPlayer();
             Form form = this.FindForm();
 
             form.Controls.Add(gs);

@@ -19,6 +19,7 @@ namespace BrickBreaker
 {
     public partial class GameScreen : UserControl
     {
+        static UserControl uc = new UserControl();
         #region global values
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, pauseArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown;
@@ -128,7 +129,7 @@ namespace BrickBreaker
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
-        {// Dima is a better programer than Carter
+        {
             //player 1 and 2 button releases
             switch (e.KeyCode)
             {

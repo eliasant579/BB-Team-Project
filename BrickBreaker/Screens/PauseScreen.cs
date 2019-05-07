@@ -33,11 +33,6 @@ namespace BrickBreaker
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-
-            if(GameScreen.Twoplayer == true)
-            {
-                GameScreen.Twoplayer = false;
-            }
             MenuScreen gs = new MenuScreen();
             Form form = this.FindForm();
             form.Controls.Add(gs);
