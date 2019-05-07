@@ -29,7 +29,7 @@ namespace BrickBreaker
         int score;
         public static Boolean Twoplayer = false;
         int level = 1;
-        int ballStartX, ballStartY, paddleStartX, paddleStartY, ballStartSpeedX = 0, ballStartSpeedY = -10;
+        int ballStartX, ballStartY, paddleStartX, paddleStartY, ballStartSpeedX = 8, ballStartSpeedY = -8;
 
         Random rng = new Random();
 
@@ -61,6 +61,7 @@ namespace BrickBreaker
         Stopwatch largePaddleWatch = new Stopwatch();
         Stopwatch fastWatch = new Stopwatch();
         Stopwatch slowWatch = new Stopwatch();
+        Stopwatch aimWatch = new Stopwatch();
 
         #endregion
 
@@ -99,12 +100,33 @@ namespace BrickBreaker
             //loadScore();
             LoadLevel("Resources/level1.xml");
 
+            aimWatch.Start();
+
             // start the game engine loop
             gameTimer.Enabled = true;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            if (e.KeyCode == Keys.P && gameTimer.Enabled)
+            {
+                gameTimer.Enabled = false;
+
+                rightArrowDown = leftArrowDown = false;
+
+                DialogResult result = PauseForm.Show();
+
+                if (result == DialogResult.Cancel)
+                {
+                    gameTimer.Enabled = true;
+                }
+                else if (result == DialogResult.Abort)
+                {
+                    Form1.ChangeScreen(this);
+                }
+
+            }
+            
             //player 1 and 2 button presses
             switch (e.KeyCode)
             {
@@ -113,9 +135,6 @@ namespace BrickBreaker
                     break;
                 case Keys.Right:
                     rightArrowDown = true;
-                    break;
-                case Keys.P:
-                    pauseArrowDown = true;
                     break;
                 case Keys.Up:
                     upArrowDown = true;
@@ -177,7 +196,33 @@ namespace BrickBreaker
             if (leftArrowDown && paddle.x > 0) { paddle.Move("left"); }
             if (rightArrowDown && paddle.x < (this.Width - paddle.width)) { paddle.Move("right"); }
 
-            //aim ball left and right from paddle
+            //aim ball left and right on paddle
+            if (aKeyDown && onPaddle && aimWatch.ElapsedMilliseconds >= 200)
+            {
+                switch (ballStartSpeedX)
+                {
+                    case -8:
+                        ballStartSpeedX = 8;
+                        break;
+                    default:
+                        break;
+                }
+                aimWatch.Restart();
+            }
+            if (dKeyDown && onPaddle && aimWatch.ElapsedMilliseconds >= 200)
+            {
+                switch (ballStartSpeedX)
+                {
+                    case 8:
+                        ballStartSpeedX = -8;
+                        break;
+                    default:
+                        break;
+                }
+                aimWatch.Restart();
+            }
+
+            /*
             if (aKeyDown && onPaddle)
             {
                 if (ballStartSpeedX > -8 && ballStartSpeedX <= 0)
@@ -204,7 +249,7 @@ namespace BrickBreaker
                     ballStartSpeedY--;
                 }
             }
-
+            */
             //pause game
             if (pauseArrowDown)
             {
@@ -239,10 +284,7 @@ namespace BrickBreaker
                             gameTimer.Enabled = false;
                             OnEnd();
                         }
-
-                        // Moves the ball back to origin
-                        balls[0].x = ((paddle.x - (ball.size / 2)) + (paddle.width / 2));
-                        balls[0].y = (this.Height - paddle.height) - 85;
+                        OnDeath();
                     }
                     else if (b.BottomCollision(this))
                     {
