@@ -95,6 +95,12 @@
     <Compile Include="Screens\GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Screens\twoPlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Screens\twoPlayer.Designer.cs">
+      <DependentUpon>twoPlayer.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +145,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+
+    <Content Include="level1.xml" />
+    <None Include="Resources\LVL2Scratch.png" />
+    <None Include="Resources\LVL3Scratch.png" />
+    <None Include="Resources\MAINSCREEN2PLAYER.jpg" />
+
     <None Include="Resources\SMALLBALL.png" />
     <None Include="Resources\SMALLPADDLE2.png" />
     <None Include="Resources\SMALLPADDLE.png" />
@@ -154,6 +166,10 @@
     <None Include="Resources\ball.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\level5.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="bin\Debug\Resources\level5.xml" />
     <Content Include="Resources\level1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
