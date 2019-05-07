@@ -81,6 +81,8 @@ namespace BrickBreaker
             paddleStartY = (this.Height - PADDLEHEIGHT) - 60;
             paddle = new Paddle(paddleStartX, paddleStartY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.White);
 
+
+
             ballStartX = this.Width / 2 - 10;
             ballStartY = this.Height - paddle.height - 85;
             int ballSize = 20;
@@ -125,7 +127,7 @@ namespace BrickBreaker
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
-        {
+        {// Dima is a better programer than Carter
             //player 1 and 2 button releases
             switch (e.KeyCode)
             {
@@ -154,8 +156,10 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+
             //shoot ball off paddle
             if (upArrowDown && onPaddle)
+
             {
                 ball.xSpeed = ballStartSpeedX;
                 ball.ySpeed = ballStartSpeedY;
@@ -222,6 +226,7 @@ namespace BrickBreaker
             {
                 if (b.BottomCollision(this))
                 {
+
                     if (balls.Count == 1)
                     {
                         lives--;
@@ -304,6 +309,8 @@ namespace BrickBreaker
             Refresh();
         }
 
+
+
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
             // Draws paddle
@@ -379,8 +386,10 @@ namespace BrickBreaker
             }
         }
 
+
         #region Death and moving on
         public void NextLevel ()
+
         {
            level++;
 
@@ -525,8 +534,10 @@ namespace BrickBreaker
             if (ball.xSpeed < 0) { ball.xSpeed -= xSpeed; }
             else { ball.xSpeed += xSpeed; }
 
+
             if (ball.ySpeed < 0) { ball.ySpeed -= ySpeed; }
             else { ball.ySpeed += ySpeed; }
+
 
             paddle.speed += paddleSpeed;
         }
@@ -536,10 +547,13 @@ namespace BrickBreaker
             paddle.width += width;
         }
 
+
         public static void ChangeLives(int number)
+
         {
             lives += number;
         }
+
 
         public void ReturnSpeeds()
         {
@@ -548,6 +562,8 @@ namespace BrickBreaker
 
             if (ball.ySpeed < 0) { ball.ySpeed = -BALLSPEED; }
             else { ball.ySpeed = BALLSPEED; }
+
+
 
             paddle.speed = PADDLESPEED;
         }
