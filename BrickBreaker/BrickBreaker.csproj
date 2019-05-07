@@ -140,6 +140,8 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="level1.xml" />
+    <None Include="Resources\LVL2Scratch.png" />
+    <None Include="Resources\LVL3Scratch.png" />
     <None Include="Resources\MAINSCREEN2PLAYER.jpg" />
     <None Include="Resources\SMALLBALL.png" />
     <None Include="Resources\SMALLPADDLE2.png" />
