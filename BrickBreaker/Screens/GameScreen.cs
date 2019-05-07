@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using System.Xml;
+using System.Diagnostics;
 
 namespace BrickBreaker
 {
@@ -21,7 +22,7 @@ namespace BrickBreaker
     {
         #region global values
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown, pauseArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown;
+        Boolean leftArrowDown, rightArrowDown, pauseArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown, smallPaddle, largePaddle, fastBoi, slowBoi;
 
         // Game values
         static int lives;
@@ -29,13 +30,12 @@ namespace BrickBreaker
         public static Boolean Twoplayer = false;
         int level = 1;
         int ballStartX, ballStartY, paddleStartX, paddleStartY, ballStartSpeedX = 0, ballStartSpeedY = -10;
-        static int bbucks = 0;
 
         Random rng = new Random();
 
         // constants
         const int BALLSPEED = 6;
-        const int PADDLESPEED = 8;
+        const int PADDLESPEED = 12;
         const int PADDLEWIDTH = 80; const int PADDLEHEIGHT = 20;
         // Paddle and Ball objects
         public static Paddle paddle; public static Ball ball;
@@ -56,6 +56,11 @@ namespace BrickBreaker
         SolidBrush shadowBrush = new SolidBrush(Color.LightGray);
         SolidBrush powerBrush = new SolidBrush(Color.White);
         Font drawFont = new Font("Arial", 12);
+
+        Stopwatch smallPAddleWatch = new Stopwatch();
+        Stopwatch largePaddleWatch = new Stopwatch();
+        Stopwatch fastWatch = new Stopwatch();
+        Stopwatch slowWatch = new Stopwatch();
 
         #endregion
 
@@ -156,7 +161,6 @@ namespace BrickBreaker
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-
             //shoot ball off paddle
             if (upArrowDown && onPaddle)
 
@@ -216,7 +220,7 @@ namespace BrickBreaker
             }
 
             // move ball
-            foreach (Ball b in balls) { ball.Move(); }
+            foreach (Ball b in balls) { b.Move(); }
 
             //check for ball hitting side of screen
             foreach (Ball b in balls) { b.WallCollision(this); }
@@ -248,13 +252,6 @@ namespace BrickBreaker
                 }
             }
 
-            // check to see if game is lost
-            if (lives == 0)
-            {
-                gameTimer.Enabled = false;
-                OnEnd();
-            }
-
             //check for ball and paddle collision
             foreach (Ball b in balls) { b.PaddleCollision(paddle, leftArrowDown, rightArrowDown); }
 
@@ -269,7 +266,7 @@ namespace BrickBreaker
                         if (b.hp == 0)
                         {
                             score += 50;
-                            if (rng.Next(1, 9) == 7) { powerups.Add(randomGenBoi(b.x, b.y)); }
+                            powerups.Add(randomGenBoi(b.x, b.y));
                             blocks.Remove(b);
                             break;
                         }
@@ -278,7 +275,7 @@ namespace BrickBreaker
                     //if all blocks are broken go to next level
                     if (blocks.Count == 0)
                     {
-                        //TODO NEXT LEVEL
+                        NextLevel();
                         break;
                     }
                 }
@@ -299,17 +296,88 @@ namespace BrickBreaker
             {
                 if (p.Collision(paddle))
                 {
-                    //do some weird shit
+                    switch (p.name)
+                    {
+                        case "multiBoi":
+                            MultiBoi();
+                            break;
+
+                        case "lifeBoi":
+                            ChangeLives(1);
+                            break;
+
+                        case "smallBoi":
+                            if (smallPaddle == false)
+                            {
+                                smallPaddle = true;
+                                smallPAddleWatch.Start();
+                                paddle.x += 10;
+                                ChangePaddle(-20);
+                            }
+                            break;
+
+                        case "enlargedBoi":
+                            if (largePaddle == false)
+                            {
+                                largePaddle = true;
+                                largePaddleWatch.Start();
+                                paddle.x -= 15;
+                                ChangePaddle(30);
+                            }
+                            break;
+
+                        case "slowBoi":
+                            slowBoi = true;
+                            slowWatch.Restart();
+                            ChangeSpeeds(-4, -4, -4);
+                            break;
+
+                        case "fastBoi":
+                            fastBoi = true;
+                            fastWatch.Restart();
+                            ChangeSpeeds(4, 4, 4);
+                            break;
+
+                    }
                     powerups.Remove(p);
                     break;
                 }
             }
 
+            if (smallPaddle && smallPAddleWatch.ElapsedMilliseconds >= 10000)
+            {
+                smallPaddle = false;
+                smallPAddleWatch.Reset();
+                ChangePaddle(20);
+            }
+            if (largePaddle && largePaddleWatch.ElapsedMilliseconds >= 10000)
+            {
+                largePaddle = false;
+                largePaddleWatch.Reset();
+                ChangePaddle(-30);
+            }
+            if (fastBoi && fastWatch.ElapsedMilliseconds >= 7000)
+            {
+                fastBoi = false;
+                fastWatch.Reset();
+                ReturnSpeeds();
+            }
+            if (slowBoi && slowWatch.ElapsedMilliseconds >= 7000)
+            {
+                slowBoi = false;
+                slowWatch.Reset();
+                ReturnSpeeds();
+            }
+
+            // check to see if game is lost
+            if (lives == 0)
+            {
+                OnEnd();
+            }
+
             //redraw the screen
             Refresh();
         }
-
-
 
         public void GameScreen_Paint(object sender, PaintEventArgs e)
         {
@@ -350,8 +418,8 @@ namespace BrickBreaker
             }
 
             //draw score and lives
-            e.Graphics.DrawString("Lives: " + ballStartSpeedX, drawFont, drawBrush, 100, 85);
-            e.Graphics.DrawString("Score: " + ballStartSpeedY, drawFont, drawBrush, 100, 100);
+            e.Graphics.DrawString("Lives: " + lives, drawFont, drawBrush, 100, 85);
+            e.Graphics.DrawString("Score: " + score, drawFont, drawBrush, 100, 100);
         }
 
         public PowerUps randomGenBoi(int _x, int _y)
@@ -389,34 +457,33 @@ namespace BrickBreaker
 
         #region Death and moving on
         public void NextLevel ()
-
         {
            level++;
 
             switch (level)
             {
-            case 2:
-                LoadLevel("Resources/level2.xml");
-                break;
-            case 3:
-                LoadLevel("Resources / level3.xml");
-                break;
-            case 4:
-                LoadLevel("Resources / level4.xml");
-                break;
-            case 5:
-                LoadLevel("Resources / level5.xml");
-                break;
-            case 6:
-                LoadLevel("Resources / level6.xml");
-                break;
-            case 7:
-                LoadLevel("Resources / level7.xml");
-                break;
-            default:
+                case 2:
+                    LoadLevel("Resources/level2.xml");
+                    break;
+                case 3:
+                    LoadLevel("Resources / level3.xml");
+                    break;
+                case 4:
+                    LoadLevel("Resources / level4.xml");
+                    break;
+                case 5:
+                    LoadLevel("Resources / level5.xml");
+                    break;
+                case 6:
+                    LoadLevel("Resources / level6.xml");
+                    break;
+                case 7:
+                    LoadLevel("Resources / level7.xml");
+                    break;
+                default:
                     OnEnd();
                     break;
-            } 
+            }
         }
         
         public void OnEnd()
@@ -424,13 +491,10 @@ namespace BrickBreaker
             //saveScore();
 
             // Goes to the game over screen
-            Form form = this.FindForm();
-            MenuScreen ps = new MenuScreen();
-
-            ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
-
-            form.Controls.Add(ps);
-            form.Controls.Remove(this);
+            Form f = this.FindForm();
+            f.Controls.Remove(this);
+            MenuScreen ms = new MenuScreen();
+            f.Controls.Add(ms);
         }
        
         public void OnDeath()
@@ -529,15 +593,24 @@ namespace BrickBreaker
         #endregion
 
         #region change value functions
+        public void MultiBoi ()
+        {
+            Ball b = new Ball(paddle.x + PADDLEWIDTH / 4, paddle.y - 30, 6, -6, 20);
+            balls.Add(b);
+            Ball b1 = new Ball(paddle.x + PADDLEWIDTH * (3/ 4), paddle.y - 30, -6, -6, 20);
+            balls.Add(b1);
+        }
+
         public static void ChangeSpeeds(int xSpeed, int ySpeed, int paddleSpeed)
         {
-            if (ball.xSpeed < 0) { ball.xSpeed -= xSpeed; }
-            else { ball.xSpeed += xSpeed; }
+            foreach (Ball b in balls)
+            {
+                if (b.xSpeed < 0) { b.xSpeed -= xSpeed; }
+                else { b.xSpeed += xSpeed; }
 
-
-            if (ball.ySpeed < 0) { ball.ySpeed -= ySpeed; }
-            else { ball.ySpeed += ySpeed; }
-
+                if (b.ySpeed < 0) { b.ySpeed -= ySpeed; }
+                else { b.ySpeed += ySpeed; }
+            }
 
             paddle.speed += paddleSpeed;
         }
@@ -549,7 +622,6 @@ namespace BrickBreaker
 
 
         public static void ChangeLives(int number)
-
         {
             lives += number;
         }
@@ -562,8 +634,6 @@ namespace BrickBreaker
 
             if (ball.ySpeed < 0) { ball.ySpeed = -BALLSPEED; }
             else { ball.ySpeed = BALLSPEED; }
-
-
 
             paddle.speed = PADDLESPEED;
         }

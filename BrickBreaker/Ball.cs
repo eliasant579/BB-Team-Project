@@ -88,7 +88,7 @@ namespace BrickBreaker
                         //ySpeed = Convert.ToInt16(Math.Sqrt(Math.Abs(velocity * velocity + xSpeed * xSpeed))) / 2;
 
                         //I have to develop the logic here
-                        /*
+                        
                         if (Math.Abs(xSpeed) < 10)
 
 
