@@ -1,7 +1,7 @@
 ﻿namespace BrickBreaker
 {
     partial class MenuScreen
-    {// Dima is a better programer than Carter
+    {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -51,7 +51,7 @@
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // exitButton
-            // // Dima is a better programer than Carter
+            // 
             this.exitButton.BackColor = System.Drawing.Color.White;
             this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -82,7 +82,7 @@
             this.TwoplayerButton.Click += new System.EventHandler(this.TwoplayerButton_Click);
             // 
             // MenuScreen
-            // // Dima is a better programer than Carter
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -103,4 +103,3 @@
         private System.Windows.Forms.Button TwoplayerButton;
     }
 }
-// Dima is a better programer than Carter

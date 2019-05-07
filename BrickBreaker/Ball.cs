@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace BrickBreaker
 {
     public class Ball
-    {// Dima is a better programer than Carter
+    {
         public int x, y, xSpeed, ySpeed, size;
         public Color colour;
 
@@ -88,7 +88,7 @@ namespace BrickBreaker
                         //ySpeed = Convert.ToInt16(Math.Sqrt(Math.Abs(velocity * velocity + xSpeed * xSpeed))) / 2;
 
                         //I have to develop the logic here
-                        /*
+                        
                         if (Math.Abs(xSpeed) < 10)
 
 
@@ -214,4 +214,3 @@ namespace BrickBreaker
         }
     }
 }
-// Dima is a better programer than Carter

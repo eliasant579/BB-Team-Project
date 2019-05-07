@@ -128,7 +128,7 @@ namespace BrickBreaker
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
-        {// Dima is a better programer than Carter
+        {
             //player 1 and 2 button releases
             switch (e.KeyCode)
             {
