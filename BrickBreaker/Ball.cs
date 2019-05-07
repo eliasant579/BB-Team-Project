@@ -96,8 +96,17 @@ namespace BrickBreaker
                     xSpeed = resultSpeed;
 
                 }
+
                 else if (side == "left" || side == "right")
                 {
+                    if (side == "left")
+                    {
+                        xSpeed = -Math.Abs(xSpeed);
+                    }
+                    else
+                    {
+                        xSpeed = Math.Abs(xSpeed);
+                    }
                     xSpeed += p.speed;
                 }
             }
