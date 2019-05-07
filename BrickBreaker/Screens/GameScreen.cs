@@ -266,7 +266,7 @@ namespace BrickBreaker
                         if (b.hp == 0)
                         {
                             score += 50;
-                            powerups.Add(randomGenBoi(b.x, b.y));
+                            if (rng.Next(1, 9) == 7) { powerups.Add(randomGenBoi(b.x, b.y)); }
                             blocks.Remove(b);
                             break;
                         }
