@@ -34,6 +34,9 @@ namespace BrickBreaker
         private void exitButton_Click(object sender, EventArgs e)
         {
 
+            Application.Exit();
+
+
             if(GameScreen.Twoplayer == true)
             {
                 GameScreen.Twoplayer = false;
@@ -44,6 +47,7 @@ namespace BrickBreaker
             form.Controls.Remove(this);
 
             gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
+
         }
     }
 }
