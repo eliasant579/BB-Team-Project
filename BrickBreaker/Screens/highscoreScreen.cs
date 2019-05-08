@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BrickBreaker
+namespace BrickBreaker.Screens
 {
     public partial class highscoreScreen : UserControl
     {
         public highscoreScreen()
         {
             InitializeComponent();
+            outputLabel.Text = Convert.ToString(GameScreen.highscores);
         }
     }
 }

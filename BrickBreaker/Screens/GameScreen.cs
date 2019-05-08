@@ -19,6 +19,7 @@ namespace BrickBreaker
 {
     public partial class GameScreen : UserControl
     {
+        static UserControl uc = new UserControl();
         #region global values
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, pauseArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown;
@@ -80,8 +81,6 @@ namespace BrickBreaker
             paddleStartX = ((this.Width / 2) - (PADDLEWIDTH / 2));
             paddleStartY = (this.Height - PADDLEHEIGHT) - 60;
             paddle = new Paddle(paddleStartX, paddleStartY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.White);
-
-
 
             ballStartX = this.Width / 2 - 10;
             ballStartY = this.Height - paddle.height - 85;
@@ -219,7 +218,7 @@ namespace BrickBreaker
             foreach (Ball b in balls) { ball.Move(); }
 
             //check for ball hitting side of screen
-            foreach (Ball b in balls) { b.WallCollision(this); }
+            //foreach (Ball b in balls) { b.WallCollision(this); }
 
             // Check for ball hitting bottom of screen
             foreach (Ball b in balls)
@@ -246,6 +245,7 @@ namespace BrickBreaker
                     }
                 }
             }
+            
 
             // check to see if game is lost
             if (lives == 0)
@@ -415,19 +415,19 @@ namespace BrickBreaker
                 LoadLevel("Resources/level2.xml");
                 break;
             case 3:
-                LoadLevel("Resources / level3.xml");
+                LoadLevel("Resources/level3.xml");
                 break;
             case 4:
-                LoadLevel("Resources / level4.xml");
+                LoadLevel("Resources/level4.xml");
                 break;
             case 5:
-                LoadLevel("Resources / level5.xml");
+                LoadLevel("Resources/level5.xml");
                 break;
             case 6:
-                LoadLevel("Resources / level6.xml");
+                LoadLevel("Resources/level6.xml");
                 break;
             case 7:
-                LoadLevel("Resources / level7.xml");
+                LoadLevel("Resources/level7.xml");
                 break;
             default:
                     OnEnd();
