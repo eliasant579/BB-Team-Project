@@ -19,6 +19,7 @@ namespace BrickBreaker
 {
     public partial class GameScreen : UserControl
     {
+        static UserControl uc = new UserControl();
         #region global values
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, pauseArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown;
