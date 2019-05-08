@@ -69,10 +69,22 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Paddle.cs" />
+    <Compile Include="PauseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PauseForm.Designer.cs">
+      <DependentUpon>PauseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\highscoreScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Screens\highscoreScreen.Designer.cs">
+      <DependentUpon>highscoreScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Screens\PauseScreen.cs">
       <SubType>UserControl</SubType>
@@ -95,14 +107,22 @@
     <Compile Include="Screens\GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\twoPlayer.cs">
+    <Compile Include="Screens\TwoPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Screens\twoPlayer.Designer.cs">
-      <DependentUpon>twoPlayer.cs</DependentUpon>
+    <Compile Include="Screens\TwoPlayer.Designer.cs">
+      <DependentUpon>TwoPlayer.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="PauseForm.resx">
+      <DependentUpon>PauseForm.cs</DependentUpon>
+</EmbeddedResource>
+    <EmbeddedResource Include="Screens\highscoreScreen.resx">
+      <DependentUpon>highscoreScreen.cs</DependentUpon>
+
     </EmbeddedResource>
     <EmbeddedResource Include="Screens\PauseScreen.resx">
       <DependentUpon>PauseScreen.cs</DependentUpon>
@@ -118,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Screens\GameScreen.resx">
       <DependentUpon>GameScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Screens\TwoPlayer.resx">
+      <DependentUpon>TwoPlayer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -145,12 +168,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-
+    <None Include="bin\Debug\Resources\level6.xml" />
+    <None Include="bin\Debug\Resources\level4.xml" />
     <Content Include="level1.xml" />
     <None Include="Resources\LVL2Scratch.png" />
     <None Include="Resources\LVL3Scratch.png" />
     <None Include="Resources\MAINSCREEN2PLAYER.jpg" />
-
     <None Include="Resources\SMALLBALL.png" />
     <None Include="Resources\SMALLPADDLE2.png" />
     <None Include="Resources\SMALLPADDLE.png" />
@@ -170,7 +193,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="bin\Debug\Resources\level5.xml" />
     <Content Include="Resources\level1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -179,7 +201,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Resources\level3.xml" />
+   
     <Content Include="Resources\level4.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
