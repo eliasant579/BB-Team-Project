@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace BrickBreaker
 {
     public class Ball
-    {// Dima is a better programer than Carter
+    {
         public int x, y, xSpeed, ySpeed, size;
         public Color colour;
 
@@ -50,9 +50,6 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(paddleRec))
             {
-                ballRec.X -= xSpeed;
-                ballRec.Y -= ySpeed;
-
                 string side = CollisionSide(paddleRec);
 
                 if (side == "top")
@@ -78,20 +75,6 @@ namespace BrickBreaker
                     else if (pMovingRight)
                     {
                         if (xSpeed > 0)
-                //find relative velocity to the paddle. Bounce it adding or subtracting, but never add too much to xSpeed
-
-
-                       // #region Eh
-
-                        //ySpeed = Convert.ToInt16(xSpeed * tan);
-
-                        //ySpeed = Convert.ToInt16(Math.Sqrt(Math.Abs(velocity * velocity + xSpeed * xSpeed))) / 2;
-
-                        //I have to develop the logic here
-                        /*
-                        if (Math.Abs(xSpeed) < 10)
-
-
                         {
                             resultSpeed = xSpeed;
                         }
@@ -104,7 +87,6 @@ namespace BrickBreaker
                             resultSpeed = p.speed + xSpeed;
                         }
                     }
-
                     else
                     {
                         resultSpeed = xSpeed;
@@ -112,6 +94,22 @@ namespace BrickBreaker
 
                     xSpeed = resultSpeed;
 
+                }
+
+                //I don't tyhink this works. I'm working on it, it won't take long
+                else if (side == "left" || side == "right")
+                {
+                    /*
+                    if (side == "left")
+                    {
+                        xSpeed = Math.Abs(xSpeed);
+                    }
+                    else
+                    {
+                        xSpeed = - Math.Abs(xSpeed);
+                    }
+                    */
+                    xSpeed += p.speed;
                 }
             }
         }
@@ -214,4 +212,3 @@ namespace BrickBreaker
         }
     }
 }
-// Dima is a better programer than Carter

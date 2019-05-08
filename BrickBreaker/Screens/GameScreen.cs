@@ -113,7 +113,6 @@ namespace BrickBreaker
                 case Keys.P:
                     pauseArrowDown = true;
                     break;
-
                 case Keys.Up:
                     upArrowDown = true;
                     break;
@@ -147,7 +146,6 @@ namespace BrickBreaker
                     break;
                 case Keys.D:
                     dKeyDown = false;
-
                     break;
                 case Keys.Up:
                     upArrowDown = false;
@@ -184,9 +182,9 @@ namespace BrickBreaker
                     ballStartSpeedX--;
                     ballStartSpeedY++;
                 }
-                else if (ballStartSpeedX < 8 && ballStartSpeedX > 0)
+                else if (ballStartSpeedX <= 8 && ballStartSpeedX > 0)
                 {
-                    ballStartSpeedX++;
+                    ballStartSpeedX--;
                     ballStartSpeedY--;
                 }
             }
@@ -195,12 +193,12 @@ namespace BrickBreaker
                 if (ballStartSpeedX < 8 && ballStartSpeedX >= 0)
                 {
                     ballStartSpeedX++;
-                    ballStartSpeedY--;
-                }
-                else if (ballStartSpeedX > -8 && ballStartSpeedX < 0)
-                {
-                    ballStartSpeedX--;
                     ballStartSpeedY++;
+                }
+                else if (ballStartSpeedX >= -8 && ballStartSpeedX < 0)
+                {
+                    ballStartSpeedX++;
+                    ballStartSpeedY--;
                 }
             }
 
@@ -262,29 +260,28 @@ namespace BrickBreaker
             foreach (Ball b in balls) { b.PaddleCollision(paddle, leftArrowDown, rightArrowDown); }
 
             // Check if ball has collided with any blocks
-            foreach (Block b in blocks)
+            foreach (Ball a in balls)
             {
-                foreach (Ball a in balls)
+                foreach (Block b in blocks)
                 {
                     if (a.BlockCollision(b))
                     {
                         b.hp--;
                         if (b.hp == 0)
                         {
-                            blocks.Remove(b);
                             score += 50;
-                            if (rng.Next(1, 9) == 7)
-                            powerups.Add(randomGenBoi(b.x, b.y));
+                            if (rng.Next(1, 9) == 7) { powerups.Add(randomGenBoi(b.x, b.y)); }
+                            blocks.Remove(b);
                             break;
                         }
                     }
-                }
 
-                //if all blocks are broken go to next level
-                if (blocks.Count == 0)
-                {
-                    //TODO NEXT LEVEL
-                    break;
+                    //if all blocks are broken go to next level
+                    if (blocks.Count == 0)
+                    {
+                        //TODO NEXT LEVEL
+                        break;
+                    }
                 }
             }
 
@@ -346,6 +343,12 @@ namespace BrickBreaker
             // Draws ball(s)
             drawBrush.Color = Color.White;
             foreach (Ball b in balls) { e.Graphics.FillRectangle(drawBrush, b.x, b.y, b.size, b.size); }
+            Pen drawPen = new Pen(Color.White);
+
+            if (onPaddle)
+            {
+                e.Graphics.DrawLine(drawPen, balls[0].x + 10, balls[0].y + 10, balls[0].x + 10*ballStartSpeedX + 10, balls[0].y - 60);
+            }
 
             //draw score and lives
             e.Graphics.DrawString("Lives: " + ballStartSpeedX, drawFont, drawBrush, 100, 85);
@@ -397,19 +400,19 @@ namespace BrickBreaker
                 LoadLevel("Resources/level2.xml");
                 break;
             case 3:
-                LoadLevel("Resources / level3.xml");
+                LoadLevel("Resources/level3.xml");
                 break;
             case 4:
-                LoadLevel("Resources / level4.xml");
+                LoadLevel("Resources/level4.xml");
                 break;
             case 5:
-                LoadLevel("Resources / level5.xml");
+                LoadLevel("Resources/level5.xml");
                 break;
             case 6:
-                LoadLevel("Resources / level6.xml");
+                LoadLevel("Resources/level6.xml");
                 break;
             case 7:
-                LoadLevel("Resources / level7.xml");
+                LoadLevel("Resources/level7.xml");
                 break;
             default:
                     OnEnd();
@@ -419,7 +422,7 @@ namespace BrickBreaker
         
         public void OnEnd()
         {
-            saveScore();
+            //saveScore();
 
             // Goes to the game over screen
             Form form = this.FindForm();
@@ -433,10 +436,12 @@ namespace BrickBreaker
        
         public void OnDeath()
         {
+            onPaddle = true;
             ball.x = paddle.x + PADDLEWIDTH / 2 - ball.size /2;
             ball.y = ballStartY;
             balls[0].xSpeed = 0;
             balls[0].ySpeed = 0;
+            
         }
         #endregion
 
