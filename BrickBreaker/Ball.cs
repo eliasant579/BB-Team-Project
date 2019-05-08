@@ -2,166 +2,88 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-
-
 namespace BrickBreaker
-
 {
-
     public class Ball
-
     {
-
         public int x, y, xSpeed, ySpeed, size;
-
+        public bool wasColliding;
         public Color colour;
-
-
 
         public static Random rand = new Random();
 
-
-
         public Ball(int _x, int _y, int _xSpeed, int _ySpeed, int _ballSize)
-
         {
-
             x = _x;
-
             y = _y;
-
             xSpeed = _xSpeed;
-
             ySpeed = _ySpeed;
-
             size = _ballSize;
-
+            wasColliding = false;
         }
-
-
 
         public void Move()
-
         {
-
             x = x + xSpeed;
-
             y = y + ySpeed;
-
         }
-
-
 
         public bool BlockCollision(Block b)
-
         {
-
             Rectangle blockRec = new Rectangle(b.x, b.y, b.width, b.height);
-
             Rectangle ballRec = new Rectangle(x, y, size, size);
-
-
 
             if (ballRec.IntersectsWith(blockRec))
-
             {
-
                 string side = CollisionSide(blockRec);
-
             }
 
-
-
             return blockRec.IntersectsWith(ballRec);
-
         }
 
-
-
         public void PaddleCollision(Paddle p, bool pMovingLeft, bool pMovingRight)
-
         {
-
             //make sure to develop the physics behind this stuff
-
             //so angles and such
-
             //this should change the angle at which the ball is travelling
 
-
-
             Rectangle ballRec = new Rectangle(x, y, size, size);
-
             Rectangle paddleRec = new Rectangle(p.x, p.y, p.width, p.height);
 
-
-
             if (ballRec.IntersectsWith(paddleRec))
-
             {
-
                 string side = CollisionSide(paddleRec);
-
-
-
                 if (side == "right" || side == "left")
 
                 {
-
                     ySpeed = -Math.Abs(ySpeed);
 
                 }
 
-
-
                 int resultSpeed = 0;
 
-
-
                 if (pMovingLeft)
-
                 {
-
                     if (xSpeed > 0)
-
                     {
-
                         resultSpeed = -p.speed + xSpeed;
-
                     }
-
                     else if (xSpeed == 0)
-
                     {
-
                         resultSpeed = -p.speed / 4;
-
                     }
-
                     else
-
                     {
-
                         resultSpeed = xSpeed;
-
                     }
-
                 }
-
                 else if (pMovingRight)
-
                 {
-
                     if (xSpeed > 0)
-
                     {
-
                         resultSpeed = xSpeed;
-
                     }
-
                     else if (xSpeed == 0)
-
                     {
 
                         resultSpeed = p.speed / 4;
@@ -387,8 +309,6 @@ namespace BrickBreaker
                 }
 
             }
-
-
 
             return side;
 
