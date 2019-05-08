@@ -119,7 +119,7 @@
 
     <EmbeddedResource Include="PauseForm.resx">
       <DependentUpon>PauseForm.cs</DependentUpon>
-
+</EmbeddedResource>
     <EmbeddedResource Include="Screens\highscoreScreen.resx">
       <DependentUpon>highscoreScreen.cs</DependentUpon>
 
@@ -193,7 +193,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="bin\Debug\Resources\level5.xml" />
     <Content Include="Resources\level1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -202,7 +201,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Resources\level3.xml" />
+   
     <Content Include="Resources\level4.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
