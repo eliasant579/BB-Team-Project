@@ -19,28 +19,90 @@ namespace BrickBreaker.Screens
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, pauseArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown, bKeyDown,mKeyDown;
         // Game values
-        static int lives;
-        int score;
-        public static Boolean Twoplayer = false;
-        int level = 1;
         int ballStartX, ballStartY, paddleStartX, paddleStartY, ballStartSpeedX = 0, ballStartSpeedY = -10;
-        static int bbucks = 0;
-
-        Random rng = new Random();
 
         // constants
         const int BALLSPEED = 6;
         const int PADDLESPEED = 8;
         const int PADDLEWIDTH = 80; const int PADDLEHEIGHT = 20;
         // Paddle and Ball objects
-        public static Paddle pad, pad2; public static Ball ball;
+        Paddle pad, pad2; Ball ball;
 
         // list of all blocks and paddles for current level
         List<Block> blocks = new List<Block>();
         List<int> highscores = new List<int>();
         List<Paddle> paddles = new List<Paddle>();
+
+        private void TwoPlayer_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            //player 1 and 2 button presses
+            switch (e.KeyCode)
+            {
+                case Keys.B:
+                    bKeyDown = true;
+                    break;
+                case Keys.M:
+                    mKeyDown = true;
+                    break;
+                case Keys.Left:
+                    leftArrowDown = true;
+                    break;
+                case Keys.Right:
+                    rightArrowDown = true;
+                    break;
+                case Keys.P:
+                    pauseArrowDown = true;
+                    break;
+                case Keys.Up:
+                    upArrowDown = true;
+                    break;
+                case Keys.A:
+                    aKeyDown = true;
+                    break;
+                case Keys.D:
+                    dKeyDown = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void TwoPlayer_KeyUp(object sender, KeyEventArgs e)
+        {
+            //player 1 and 2 button releases
+            switch (e.KeyCode)
+            {
+                case Keys.B:
+                    bKeyDown = false;
+                    break;
+                case Keys.M:
+                    mKeyDown = false;
+                    break;
+                case Keys.Left:
+                    leftArrowDown = false;
+                    break;
+                case Keys.Right:
+                    rightArrowDown = false;
+                    break;
+                case Keys.P:
+                    pauseArrowDown = false;
+                    break;
+                case Keys.A:
+                    aKeyDown = false;
+                    break;
+                case Keys.D:
+                    dKeyDown = false;
+                    break;
+                case Keys.Up:
+                    upArrowDown = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         List<Ball> balls = new List<Ball>();
-        List<PowerUps> powerups = new List<PowerUps>();
+
 
         // Brushes
         SolidBrush paddleBrush = new SolidBrush(Color.White);
@@ -94,21 +156,21 @@ namespace BrickBreaker.Screens
         {
 
             // Setup variables 
-            int paddleBoostY = 80;
-            int paddleY = (this.Height - PADDLEHEIGHT) - paddleBoostY;
+            int paddleBoostY = 60;
+            int paddleY = (this.Height - this.Height+ PADDLEHEIGHT) + paddleBoostY;
             int paddleSpeed = 8;
             int paddleStartX = ((this.Width / 2) - (PADDLEWIDTH / 2));
-            int paddleStartY = (this.Height - PADDLEHEIGHT) - 60;
+            int paddleStartY = (this.Height - PADDLEHEIGHT) - 80;
             //Creating and Adding paddles/balls to a list
-            Paddle pad = new Paddle(paddleStartX, paddleStartY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.White);
+            pad = new Paddle(paddleStartX, paddleStartY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.White);
             paddles.Add(pad);
-            Paddle pad2 = new Paddle(paddleStartX, paddleY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.Blue);
+            pad2 = new Paddle(paddleStartX, paddleY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.Blue);
             paddles.Add(pad2);
             ballStartX = this.Width / 2 - 10;
-            ballStartY = this.Height - pad.height - 85;
+            ballStartY = this.Height - pad.height - 120;
             int ballSize = 20;
             balls.Clear();
-            ball = new Ball(ballStartX, ballStartY, 0, 0, ballSize);
+            ball = new Ball(ballStartX, ballStartY, 6, 6, ballSize);
             balls.Add(ball);
 
             //load score
@@ -118,123 +180,21 @@ namespace BrickBreaker.Screens
             // start the game engine loop
             gameTimer.Enabled = true;
         }
-        private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            //player 1 and 2 button presses
-            switch (e.KeyCode)
-            {
-                case Keys.B:
-                    bKeyDown = true;
-                    break;
-                case Keys.M:
-                    mKeyDown = true;
-                    break;
-                case Keys.Left:
-                    leftArrowDown = true;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = true;
-                    break;
-                case Keys.P:
-                    pauseArrowDown = true;
-                    break;
-                case Keys.Up:
-                    upArrowDown = true;
-                    break;
-                case Keys.A:
-                    aKeyDown = true;
-                    break;
-                case Keys.D:
-                    dKeyDown = true;
-                    break;
-                default:
-                    break;
-            }
-        }
 
-        private void GameScreen_KeyUp(object sender, KeyEventArgs e)
-        {
-            //player 1 and 2 button releases
-            switch (e.KeyCode)
-            {
-                case Keys.B:
-                    bKeyDown = false;
-                    break;
-                case Keys.M:
-                    mKeyDown = false;
-                    break;
-                case Keys.Left:
-                    leftArrowDown = false;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = false;
-                    break;
-                case Keys.P:
-                    pauseArrowDown = false;
-                    break;
-                case Keys.A:
-                    aKeyDown = false;
-                    break;
-                case Keys.D:
-                    dKeyDown = false;
-                    break;
-                case Keys.Up:
-                    upArrowDown = false;
-                    break;
-                default:
-                    break;
-            }
-        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // shoot ball off paddle
-            if (upArrowDown && onPaddle)
-
-            {
-                ball.xSpeed = ballStartSpeedX;
-                ball.ySpeed = ballStartSpeedY;
-                onPaddle = false;
-            }
-           
-            //center ball on paddle if it is supposed to be
-            if (onPaddle) { balls[0].x = pad.x + PADDLEWIDTH / 2; }
-             
+                  
             //move paddle left and right
             if (leftArrowDown && pad.x > 0) { pad.Move("left"); }
             if (rightArrowDown && pad.x < (this.Width - pad.width)) { pad.Move("right"); }
             if (aKeyDown == true && pad2.x > 0) { pad.Move("left"); }
             if (dKeyDown && pad2.x < (this.Width - pad2.width)) { pad2.Move("right"); }
 
-            //aim ball left and right from paddle
-            if (bKeyDown && onPaddle)
-            {
-                if (ballStartSpeedX > -8 && ballStartSpeedX <= 0)
-                {
-                    ballStartSpeedX--;
-                    ballStartSpeedY++;
-                }
-                else if (ballStartSpeedX < 8 && ballStartSpeedX > 0)
-                {
-                    ballStartSpeedX++;
-                    ballStartSpeedY--;
-                }
-            }
-            if (mKeyDown && onPaddle)
-            {
-                if (ballStartSpeedX < 8 && ballStartSpeedX >= 0)
-                {
-                    ballStartSpeedX++;
-                    ballStartSpeedY--;
-                }
-                else if (ballStartSpeedX > -8 && ballStartSpeedX < 0)
-                {
-                    ballStartSpeedX--;
-                    ballStartSpeedY++;
-                }
-            }
-
+            //Side Wall Collsion
+            foreach (Ball b in balls) { b.WallCollision(this); }
             //pause game
-            if (pauseArrowDown)
+            if (pauseArrowDown == true)
             {
                 PauseScreen ps = new PauseScreen();
                 Form form = this.FindForm();
@@ -248,7 +208,8 @@ namespace BrickBreaker.Screens
             }
 
             // move ball
-            foreach (Ball b in balls) { ball.Move(); }
+            foreach (Ball b in balls)
+            { ball.Move(); }
         }
         private void twoPlayer_Paint(object sender, PaintEventArgs e)
         {
@@ -279,4 +240,4 @@ namespace BrickBreaker.Screens
             foreach (Ball b in balls) { e.Graphics.FillRectangle(drawBrush, b.x, b.y, b.size, b.size); }
         }
     }
-    } 
+    }
