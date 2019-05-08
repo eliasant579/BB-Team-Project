@@ -82,8 +82,6 @@ namespace BrickBreaker
             paddleStartY = (this.Height - PADDLEHEIGHT) - 60;
             paddle = new Paddle(paddleStartX, paddleStartY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.White);
 
-
-
             ballStartX = this.Width / 2 - 10;
             ballStartY = this.Height - paddle.height - 85;
             int ballSize = 20;
@@ -220,7 +218,7 @@ namespace BrickBreaker
             foreach (Ball b in balls) { ball.Move(); }
 
             //check for ball hitting side of screen
-            foreach (Ball b in balls) { b.WallCollision(this); }
+            //foreach (Ball b in balls) { b.WallCollision(this); }
 
             // Check for ball hitting bottom of screen
             foreach (Ball b in balls)
@@ -248,6 +246,7 @@ namespace BrickBreaker
                     }
                 }
             }
+            
 
             // check to see if game is lost
             if (lives == 0)
