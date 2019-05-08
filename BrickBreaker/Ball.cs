@@ -233,7 +233,6 @@ namespace BrickBreaker
             }
 
 
-
             /*
 
             //Checks for bottom wall collsion if two player
@@ -251,8 +250,7 @@ namespace BrickBreaker
                 }
 
             } 
-
-            //*/
+            */
 
         }
 
