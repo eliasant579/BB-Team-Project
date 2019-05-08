@@ -84,13 +84,13 @@ namespace BrickBreaker
             onPaddle = true;
             int paddleSpeed = 8;
             paddleStartX = ((this.Width / 2) - (PADDLEWIDTH / 2));
-            paddleStartY = (this.Height - PADDLEHEIGHT) - 60;
+            paddleStartY = (this.Height - PADDLEHEIGHT);
             paddle = new Paddle(paddleStartX, paddleStartY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.White);
 
 
 
             ballStartX = this.Width / 2 - 10;
-            ballStartY = this.Height - paddle.height - 85;
+            ballStartY = this.Height - paddle.height - 25;
             int ballSize = 20;
             balls.Clear();
             ball = new Ball (ballStartX, ballStartY, 0, 0, ballSize);
