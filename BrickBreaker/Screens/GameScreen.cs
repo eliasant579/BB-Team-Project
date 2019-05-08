@@ -22,7 +22,7 @@ namespace BrickBreaker
     {
         #region global values
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, rightArrowDown, pauseArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown, smallPaddle, largePaddle, fastBoi, slowBoi;
+        Boolean leftArrowDown, rightArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown, smallPaddle, largePaddle, fastBoi, slowBoi;
 
         // Game values
         static int lives;
@@ -122,7 +122,11 @@ namespace BrickBreaker
                 }
                 else if (result == DialogResult.Abort)
                 {
-                    Form1.ChangeScreen(this);
+                    Form f = this.FindForm();
+                    f.Controls.Remove(this);
+                    this.Dispose();
+                    MenuScreen ms = new MenuScreen();
+                    f.Controls.Add(ms);
                 }
 
             }
@@ -161,9 +165,6 @@ namespace BrickBreaker
                 case Keys.Right:
                     rightArrowDown = false;
                     break;
-                case Keys.P:
-                    pauseArrowDown = false;
-                    break;
                 case Keys.A:
                     aKeyDown = false;
                     break;
@@ -197,32 +198,6 @@ namespace BrickBreaker
             if (rightArrowDown && paddle.x < (this.Width - paddle.width)) { paddle.Move("right"); }
 
             //aim ball left and right on paddle
-            if (aKeyDown && onPaddle && aimWatch.ElapsedMilliseconds >= 200)
-            {
-                switch (ballStartSpeedX)
-                {
-                    case -8:
-                        ballStartSpeedX = 8;
-                        break;
-                    default:
-                        break;
-                }
-                aimWatch.Restart();
-            }
-            if (dKeyDown && onPaddle && aimWatch.ElapsedMilliseconds >= 200)
-            {
-                switch (ballStartSpeedX)
-                {
-                    case 8:
-                        ballStartSpeedX = -8;
-                        break;
-                    default:
-                        break;
-                }
-                aimWatch.Restart();
-            }
-
-            /*
             if (aKeyDown && onPaddle)
             {
                 if (ballStartSpeedX > -8 && ballStartSpeedX <= 0)
@@ -248,20 +223,6 @@ namespace BrickBreaker
                     ballStartSpeedX++;
                     ballStartSpeedY--;
                 }
-            }
-            */
-            //pause game
-            if (pauseArrowDown)
-            {
-                PauseScreen ps = new PauseScreen();
-                Form form = this.FindForm();
-
-                gameTimer.Enabled = false;
-
-                form.Controls.Add(ps);
-                form.Controls.Remove(this);
-
-                ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
             }
 
             // move ball
