@@ -399,19 +399,19 @@ namespace BrickBreaker
                 LoadLevel("Resources/level2.xml");
                 break;
             case 3:
-                LoadLevel("Resources / level3.xml");
+                LoadLevel("Resources/level3.xml");
                 break;
             case 4:
-                LoadLevel("Resources / level4.xml");
+                LoadLevel("Resources/level4.xml");
                 break;
             case 5:
-                LoadLevel("Resources / level5.xml");
+                LoadLevel("Resources/level5.xml");
                 break;
             case 6:
-                LoadLevel("Resources / level6.xml");
+                LoadLevel("Resources/level6.xml");
                 break;
             case 7:
-                LoadLevel("Resources / level7.xml");
+                LoadLevel("Resources/level7.xml");
                 break;
             default:
                     OnEnd();
