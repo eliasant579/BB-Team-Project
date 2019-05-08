@@ -29,7 +29,7 @@ namespace BrickBreaker
         int score;
         public static Boolean Twoplayer = false;
         int level = 1;
-        int ballStartX, ballStartY, paddleStartX, paddleStartY, ballStartSpeedX = 8, ballStartSpeedY = -8;
+        int ballStartX, ballStartY, paddleStartX, paddleStartY, ballStartSpeedX = 0, ballStartSpeedY = 10;
 
         Random rng = new Random();
 
@@ -74,7 +74,7 @@ namespace BrickBreaker
         public void OnStart()
         {
             //set life counter
-            lives = 3;
+            lives = 1;
             level = 1;
 
             //set all button presses to false.
@@ -240,11 +240,6 @@ namespace BrickBreaker
                     if (balls.Count == 1)
                     {
                         lives--;
-                        if (lives == 0)
-                        {
-                            gameTimer.Enabled = false;
-                            OnEnd();
-                        }
                         OnDeath();
                     }
                     else if (b.BottomCollision(this))
@@ -496,6 +491,7 @@ namespace BrickBreaker
             // Goes to the game over screen
             Form f = this.FindForm();
             f.Controls.Remove(this);
+            this.Dispose();
             MenuScreen ms = new MenuScreen();
             f.Controls.Add(ms);
         }
