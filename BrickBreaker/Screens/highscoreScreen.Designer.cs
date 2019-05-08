@@ -1,6 +1,6 @@
 ﻿namespace BrickBreaker.Screens
 {
-    partial class TwoPlayer
+    partial class highscoreScreen
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,30 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(highscoreScreen));
+            this.outputLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // gameTimer
+            // outputLabel
             // 
-            this.gameTimer.Enabled = true;
-            this.gameTimer.Interval = 16;
-            this.gameTimer.Tick += new System.EventHandler(this.timer1_Tick);
+            this.outputLabel.BackColor = System.Drawing.Color.Transparent;
+            this.outputLabel.Location = new System.Drawing.Point(393, 195);
+            this.outputLabel.Name = "outputLabel";
+            this.outputLabel.Size = new System.Drawing.Size(390, 623);
+            this.outputLabel.TabIndex = 0;
             // 
-            // twoPlayer
+            // highscoreScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Name = "twoPlayer"; 
-            this.Size = new System.Drawing.Size(850, 550);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.twoPlayer_Paint);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.outputLabel);
+            this.Name = "highscoreScreen";
+            this.Size = new System.Drawing.Size(1200, 846);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Label outputLabel;
     }
 }
