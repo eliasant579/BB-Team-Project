@@ -96,16 +96,19 @@ namespace BrickBreaker
 
                 }
 
+                //I don't tyhink this works. I'm working on it, it won't take long
                 else if (side == "left" || side == "right")
                 {
+                    /*
                     if (side == "left")
-                    {
-                        xSpeed = -Math.Abs(xSpeed);
-                    }
-                    else
                     {
                         xSpeed = Math.Abs(xSpeed);
                     }
+                    else
+                    {
+                        xSpeed = - Math.Abs(xSpeed);
+                    }
+                    */
                     xSpeed += p.speed;
                 }
             }
