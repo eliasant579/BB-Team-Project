@@ -52,8 +52,11 @@ namespace BrickBreaker
             {
                 string side = CollisionSide(paddleRec);
 
-                if (side == "top")
+                if (side == "right" || side == "left")
                 {
+                    ySpeed = -Math.Abs(ySpeed);
+                }
+
                     int resultSpeed = 0;
 
                     if (pMovingLeft)
@@ -70,7 +73,6 @@ namespace BrickBreaker
                         {
                             resultSpeed = xSpeed;
                         }
-
                     }
                     else if (pMovingRight)
                     {
@@ -94,23 +96,6 @@ namespace BrickBreaker
 
                     xSpeed = resultSpeed;
 
-                }
-
-                //I don't tyhink this works. I'm working on it, it won't take long
-                else if (side == "left" || side == "right")
-                {
-                    /*
-                    if (side == "left")
-                    {
-                        xSpeed = Math.Abs(xSpeed);
-                    }
-                    else
-                    {
-                        xSpeed = - Math.Abs(xSpeed);
-                    }
-                    */
-                    xSpeed += p.speed;
-                }
             }
         }
 
