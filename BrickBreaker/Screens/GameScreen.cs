@@ -225,20 +225,21 @@ namespace BrickBreaker
             }
 
             // move ball
-            foreach (Ball b in balls) { b.Move(); }
+            if (onPaddle == false)
+            {
+                foreach (Ball b in balls) { b.Move(); }
+            }
 
             //check for ball hitting side of screen
-            //foreach (Ball b in balls) { b.WallCollision(this); }
+            foreach (Ball b in balls) { b.WallCollision(this); }
 
             // Check for ball hitting bottom of screen
             foreach (Ball b in balls)
             {
                 if (b.BottomCollision(this))
                 {
-
                     if (balls.Count == 1)
                     {
-          
                         lives--;
                         if (lives == 0)
                         {
@@ -271,7 +272,8 @@ namespace BrickBreaker
                         if (b.hp == 0)
                         {
                             score += 50;
-                            if (rng.Next(1, 9) == 7) { powerups.Add(randomGenBoi(b.x, b.y)); }
+                            /*if (rng.Next(1, 2) == 2) */
+                            powerups.Add(randomGenBoi(b.x, b.y));
                             blocks.Remove(b);
                             break;
                         }
@@ -392,12 +394,12 @@ namespace BrickBreaker
             e.Graphics.FillRectangle(shadowBrush, paddle.x + 3, paddle.y + 3, paddle.width, paddle.height);
             e.Graphics.FillRectangle(blockBrush, paddle.x - 1, paddle.y - 1, paddle.width + 2, paddle.height + 2);
             e.Graphics.FillRectangle(drawBrush, paddle.x, paddle.y, paddle.width, paddle.height);
-          
+
 
             // Draws blocks
             foreach (Block b in blocks)
             {
-               
+
                 e.Graphics.FillRectangle(shadowBrush, b.x + 3, b.y + 3, b.width, b.height);
                 e.Graphics.FillRectangle(blockBrush, b.x, b.y, b.width, b.height);
                 e.Graphics.FillRectangle(drawBrush, b.x + 1, b.y + 1, b.width - 2, b.height - 2);
@@ -405,7 +407,7 @@ namespace BrickBreaker
                 switch (b.hp)
                 {
                     case 1:
-                        drawBrush.Color = Color.White;         
+                        drawBrush.Color = Color.White;
                         break;
                     case 2:
                         drawBrush.Color = Color.White;
@@ -419,7 +421,31 @@ namespace BrickBreaker
 
             }
 
-            foreach (PowerUps p in powerups) { e.Graphics.FillEllipse(powerBrush, p.x, p.y, 25, 25); }
+            //draw powerups
+            foreach (PowerUps p in powerups)
+            {
+                switch (p.name)
+                {
+                    case "multiBoi":
+                        e.Graphics.DrawImage(Properties.Resources.multiBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "lifeBoi":
+                        e.Graphics.DrawImage(Properties.Resources.lifeBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "smallBoi":
+                        e.Graphics.DrawImage(Properties.Resources.smallBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "enlargedBoi":
+                        e.Graphics.DrawImage(Properties.Resources.enlargedBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "slowBoi":
+                        e.Graphics.DrawImage(Properties.Resources.slowBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "fastBoi":
+                        e.Graphics.DrawImage(Properties.Resources.fastBoi, p.x, p.y, 40, 40);
+                        break;
+                }
+            }
 
             // Draws ball(s)
             drawBrush.Color = Color.White;

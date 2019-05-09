@@ -116,13 +116,11 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-
     <EmbeddedResource Include="PauseForm.resx">
       <DependentUpon>PauseForm.cs</DependentUpon>
-</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="Screens\highscoreScreen.resx">
       <DependentUpon>highscoreScreen.cs</DependentUpon>
-
     </EmbeddedResource>
     <EmbeddedResource Include="Screens\PauseScreen.resx">
       <DependentUpon>PauseScreen.cs</DependentUpon>
@@ -174,6 +172,7 @@
     <None Include="Resources\LVL2Scratch.png" />
     <None Include="Resources\LVL3Scratch.png" />
     <None Include="Resources\MAINSCREEN2PLAYER.jpg" />
+    <None Include="Resources\powerups.zip" />
     <None Include="Resources\SMALLBALL.png" />
     <None Include="Resources\SMALLPADDLE2.png" />
     <None Include="Resources\SMALLPADDLE.png" />
@@ -189,6 +188,8 @@
     <None Include="Resources\ball.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\enlargedBoi.png" />
+    <None Include="Resources\fastBoi.png" />
     <Content Include="Resources\level5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -201,7 +202,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-   
     <Content Include="Resources\level4.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -210,6 +210,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\level7.xml" />
+    <None Include="Resources\lifeBoi.png" />
+    <None Include="Resources\multiBoi.png" />
+    <None Include="Resources\slowBoi.png" />
+    <None Include="Resources\smallBoi.png" />
     <Content Include="Resources\twoplayerlevel1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
