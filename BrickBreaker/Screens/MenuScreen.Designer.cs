@@ -51,6 +51,8 @@
             this.playButton.TabIndex = 0;
             this.playButton.UseVisualStyleBackColor = false;
             this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            this.playButton.Enter += new System.EventHandler(this.PlayButton_Enter);
+            this.playButton.Leave += new System.EventHandler(this.PlayButton_Leave);
             // 
             // exitButton
             // 
@@ -62,9 +64,11 @@
             this.exitButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(227, 114);
-            this.exitButton.TabIndex = 1;
+            this.exitButton.TabIndex = 3;
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            this.exitButton.Enter += new System.EventHandler(this.exitButton_Enter);
+            this.exitButton.Leave += new System.EventHandler(this.exitButton_Leave);
             // 
             // button1
             // 
@@ -78,8 +82,10 @@
             this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(227, 114);
-            this.button1.TabIndex = 2;
+            this.button1.TabIndex = 1;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Enter += new System.EventHandler(this.Button1_Enter);
+            this.button1.Leave += new System.EventHandler(this.Button1_Leave);
             // 
             // twoPlayerButton
             // 
@@ -108,9 +114,11 @@
             this.highscoreButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.highscoreButton.Name = "highscoreButton";
             this.highscoreButton.Size = new System.Drawing.Size(227, 114);
-            this.highscoreButton.TabIndex = 3;
+            this.highscoreButton.TabIndex = 2;
             this.highscoreButton.UseVisualStyleBackColor = false;
             this.highscoreButton.Click += new System.EventHandler(this.HighscoreButton_Click);
+            this.highscoreButton.Enter += new System.EventHandler(this.HighscoreButton_Enter);
+            this.highscoreButton.Leave += new System.EventHandler(this.HighscoreButton_Leave);
             // 
             // MenuScreen
             // 
@@ -125,6 +133,8 @@
             this.Controls.Add(this.playButton);
             this.Name = "MenuScreen";
             this.Size = new System.Drawing.Size(1200, 846);
+            this.Enter += new System.EventHandler(this.exitButton_Enter);
+            this.Leave += new System.EventHandler(this.exitButton_Leave);
             this.ResumeLayout(false);
 
         }

@@ -44,6 +44,8 @@
             this.continueButton.TabIndex = 0;
             this.continueButton.UseVisualStyleBackColor = false;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
+            this.continueButton.Enter += new System.EventHandler(this.ContinueButton_Enter);
+            this.continueButton.Leave += new System.EventHandler(this.ContinueButton_Leave);
             // 
             // exitButton
             // 
@@ -57,6 +59,8 @@
             this.exitButton.TabIndex = 1;
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            this.exitButton.Enter += new System.EventHandler(this.ExitButton_Enter);
+            this.exitButton.Leave += new System.EventHandler(this.ExitButton_Leave);
             // 
             // PauseForm
             // 

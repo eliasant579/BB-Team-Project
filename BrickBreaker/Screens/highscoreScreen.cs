@@ -22,5 +22,16 @@ namespace BrickBreaker.Screens
                 outputLabel.Text += Convert.ToString(i) + "\n";
             }
         }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            MenuScreen hs = new MenuScreen();
+            Form form = Form1.ActiveForm;
+
+            form.Controls.Add(hs);
+            form.Controls.Remove(this);
+
+            hs.Location = new Point((form.Width - hs.Width) / 2, (form.Height - hs.Height) / 2);
+        }
     }
 }
