@@ -15,7 +15,12 @@ namespace BrickBreaker.Screens
         public highscoreScreen()
         {
             InitializeComponent();
-            outputLabel.Text = Convert.ToString(GameScreen.highscores);
+
+            GameScreen.loadScore();
+            foreach (int i in GameScreen.highscores)
+            {
+                outputLabel.Text += Convert.ToString(i) + "\n";
+            }
         }
     }
 }

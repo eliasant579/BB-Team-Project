@@ -42,7 +42,7 @@ namespace BrickBreaker
         public static Paddle paddle; public static Ball ball;
 
         // list of all blocks and paddles for current level
-        List<Block> blocks = new List<Block>();
+        public static List<Block> blocks = new List<Block>();
         public static List<int> highscores = new List<int>();
         public static List<Paddle> paddles = new List<Paddle>();
         public static List<Ball> balls = new List<Ball>();
@@ -72,6 +72,12 @@ namespace BrickBreaker
         {
             InitializeComponent();
             OnStart();
+
+            for (int x = highscores.Count(); x<10; x++)
+            {
+                highscores.Add(0);
+            }
+            
         }
 
         public void OnStart()
@@ -98,7 +104,7 @@ namespace BrickBreaker
             balls.Add(ball);
 
             //load score
-            //loadScore();
+            
             NextLevel();
 
             aimWatch.Start();
@@ -551,13 +557,15 @@ namespace BrickBreaker
         
         public void OnEnd()
         {
-            //saveScore();
+            saveScore();
 
-            // Goes to the game over screen
-            Form f = this.FindForm();
-            f.Controls.Remove(this);
-            MenuScreen ms = new MenuScreen();
-            f.Controls.Add(ms);
+            MenuScreen hs = new MenuScreen();
+            Form form = Form1.ActiveForm;
+
+            form.Controls.Add(hs);
+            form.Controls.Remove(this);
+
+            hs.Location = new Point((form.Width - hs.Width) / 2, (form.Height - hs.Height) / 2);
         }
        
         public void OnDeath()
@@ -571,7 +579,7 @@ namespace BrickBreaker
         #endregion
 
         #region Levels and Scores
-        public void LoadLevel(string level)
+        public static void LoadLevel(string level)
         {
             //creates variables and xml reader needed
             XmlReader reader = XmlReader.Create(level);
@@ -612,6 +620,7 @@ namespace BrickBreaker
             highscores.Add(score);
 
             highscores.Sort();
+            highscores.Reverse();
 
             XmlWriter writer = XmlWriter.Create("Resources/scores.xml", null);
 
@@ -627,7 +636,7 @@ namespace BrickBreaker
 
         }
 
-        public void loadScore()
+        public static void loadScore()
         {
             string newScore;
             int intScore;
