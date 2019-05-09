@@ -145,12 +145,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-
     <Content Include="level1.xml" />
     <None Include="Resources\LVL2Scratch.png" />
     <None Include="Resources\LVL3Scratch.png" />
     <None Include="Resources\MAINSCREEN2PLAYER.jpg" />
-
     <None Include="Resources\SMALLBALL.png" />
     <None Include="Resources\SMALLPADDLE2.png" />
     <None Include="Resources\SMALLPADDLE.png" />
@@ -166,6 +164,8 @@
     <None Include="Resources\ball.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Desert.wav" />
+    <None Include="Resources\elmobo - Pac in Time OST %28DOS AdLib%29 - 01 Desert.mp3" />
     <Content Include="Resources\level5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -188,6 +188,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\level7.xml" />
+    <None Include="Resources\MenuScreenWhighscore.jpg" />
     <Content Include="Resources\twoplayerlevel1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

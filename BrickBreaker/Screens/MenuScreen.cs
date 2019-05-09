@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace BrickBreaker
 {
     public partial class MenuScreen : UserControl
     {
+
         public MenuScreen()
         {
             InitializeComponent();
+            
 
         }
 
@@ -22,6 +25,7 @@ namespace BrickBreaker
         {
             Application.Exit();
         }
+
 
         private void playButton_Click(object sender, EventArgs e)
         {
