@@ -8,6 +8,7 @@ namespace BrickBreaker
     {
         public int x, y, xSpeed, ySpeed, size;
         public bool wasColliding;
+        public Point currentCollidingBlock;
         public Color colour;
 
         public static Random rand = new Random();
@@ -35,7 +36,17 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(blockRec))
             {
-                string side = CollisionSide(blockRec);
+                if (wasColliding == false && currentCollidingBlock != new Point(b.x, b.y))
+                {
+                    CollisionSide(blockRec);
+                    wasColliding = true;
+                    currentCollidingBlock = new Point(b.x, b.y);
+                }
+            }
+            else
+            {
+                wasColliding = false;
+                currentCollidingBlock = Point.Empty;
             }
 
             return blockRec.IntersectsWith(ballRec);
@@ -43,10 +54,6 @@ namespace BrickBreaker
 
         public void PaddleCollision(Paddle p, bool pMovingLeft, bool pMovingRight)
         {
-            //make sure to develop the physics behind this stuff
-            //so angles and such
-            //this should change the angle at which the ball is travelling
-
             Rectangle ballRec = new Rectangle(x, y, size, size);
             Rectangle paddleRec = new Rectangle(p.x, p.y, p.width, p.height);
 
