@@ -68,6 +68,20 @@ namespace BrickBreaker
                     }
                     else if (xSpeed == 0)
                     {
+
+                        if (xSpeed > 0)
+                        {
+                            resultSpeed = xSpeed;
+                        }
+                        else if (xSpeed == 0)
+                        {
+                            resultSpeed = p.speed / 4;
+                        }
+                        else
+                        {
+                            resultSpeed = p.speed + xSpeed;
+                        }
+
                         resultSpeed = -p.speed / 4;
                     }
                     else
