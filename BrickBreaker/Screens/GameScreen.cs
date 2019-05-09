@@ -56,7 +56,7 @@ namespace BrickBreaker
         SolidBrush blockBrush2 = new SolidBrush(Color.White);
         SolidBrush shadowBrush = new SolidBrush(Color.LightGray);
         SolidBrush powerBrush = new SolidBrush(Color.White);
-        Font drawFont = new Font("Arial", 12);
+        Font drawFont = new Font("Arial", 8);
 
         Stopwatch smallPAddleWatch = new Stopwatch();
         Stopwatch largePaddleWatch = new Stopwatch();
@@ -480,8 +480,9 @@ namespace BrickBreaker
       
 
             //draw score and lives
-            e.Graphics.DrawString("Lives: " + lives, drawFont, drawBrush, 100, 85);
-            e.Graphics.DrawString("Score: " + score, drawFont, drawBrush, 100, 100);
+            drawBrush.Color = Color.Black;
+            for (int i = 0; i < lives; i++){ e.Graphics.DrawImage(Properties.Resources.lifeBoi, 715 + (20 * i), 10, 20, 20);}              
+            e.Graphics.DrawString("Score: " + score, drawFont, drawBrush, 715, 35);
 
 
         }
@@ -490,7 +491,7 @@ namespace BrickBreaker
         {
             Random rnd = new Random();
 
-            int randomNumber = rnd.Next(1, 106);
+            int randomNumber = rnd.Next(0, 60);
 
             if (randomNumber <= 10)
             {
@@ -500,15 +501,15 @@ namespace BrickBreaker
             {
                 return new PowerUps(_x, _y, "fastBoi");
             }
-            else if (randomNumber <= 35)
+            else if (randomNumber <= 30)
             {
                 return new PowerUps(_x, _y, "slowBoi");
             }
-            else if (randomNumber <= 55)
+            else if (randomNumber <= 40)
             {
                 return new PowerUps(_x, _y, "smallBoi");
             }
-            else if (randomNumber <= 80)
+            else if (randomNumber <= 50)
             {
                 return new PowerUps(_x, _y, "enlargedBoi");
             }
@@ -523,6 +524,7 @@ namespace BrickBreaker
         public void NextLevel()
         {
             level++;
+            powerups.Clear();
 
             switch (level)
             {
