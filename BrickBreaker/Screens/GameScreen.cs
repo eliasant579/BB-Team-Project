@@ -20,6 +20,7 @@ namespace BrickBreaker
 {
     public partial class GameScreen : UserControl
     {
+        static UserControl uc = new UserControl();
         #region global values
         //player1 button control keys - DO NOT CHANGE
         Boolean leftArrowDown, rightArrowDown, upArrowDown, onPaddle = true, aKeyDown, dKeyDown, smallPaddle, largePaddle, fastBoi, slowBoi;
@@ -29,7 +30,7 @@ namespace BrickBreaker
         int score;
         public static Boolean Twoplayer = false;
         int level = 1;
-        int ballStartX, ballStartY, paddleStartX, paddleStartY, ballStartSpeedX = 0, ballStartSpeedY = 10;
+        int ballStartX, ballStartY, paddleStartX, paddleStartY, ballStartSpeedX = 8, ballStartSpeedY = -8;
 
         Random rng = new Random();
 
@@ -74,7 +75,7 @@ namespace BrickBreaker
         public void OnStart()
         {
             //set life counter
-            lives = 1;
+            lives = 3;
             level = 1;
 
             //set all button presses to false.
@@ -86,8 +87,6 @@ namespace BrickBreaker
             paddleStartX = ((this.Width / 2) - (PADDLEWIDTH / 2));
             paddleStartY = (this.Height - PADDLEHEIGHT);
             paddle = new Paddle(paddleStartX, paddleStartY, PADDLEWIDTH, PADDLEHEIGHT, paddleSpeed, Color.White);
-
-
 
             ballStartX = this.Width / 2 - 10;
             ballStartY = this.Height - paddle.height - 25;
@@ -155,7 +154,7 @@ namespace BrickBreaker
         }
 
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
-        {// Dima is a better programer than Carter
+        {
             //player 1 and 2 button releases
             switch (e.KeyCode)
             {
@@ -229,7 +228,7 @@ namespace BrickBreaker
             foreach (Ball b in balls) { b.Move(); }
 
             //check for ball hitting side of screen
-            foreach (Ball b in balls) { b.WallCollision(this); }
+            //foreach (Ball b in balls) { b.WallCollision(this); }
 
             // Check for ball hitting bottom of screen
             foreach (Ball b in balls)
@@ -239,7 +238,14 @@ namespace BrickBreaker
 
                     if (balls.Count == 1)
                     {
+          
                         lives--;
+                        if (lives == 0)
+                        {
+                            gameTimer.Enabled = false;
+                            OnEnd();
+                            
+                        }
                         OnDeath();
                     }
                     else if (b.BottomCollision(this))
@@ -249,6 +255,7 @@ namespace BrickBreaker
                     }
                 }
             }
+            
 
             //check for ball and paddle collision
             foreach (Ball b in balls) { b.PaddleCollision(paddle, leftArrowDown, rightArrowDown); }
@@ -381,43 +388,62 @@ namespace BrickBreaker
         {
             // Draws paddle
             drawBrush.Color = paddle.colour;
+
+            e.Graphics.FillRectangle(shadowBrush, paddle.x + 3, paddle.y + 3, paddle.width, paddle.height);
+            e.Graphics.FillRectangle(blockBrush, paddle.x - 1, paddle.y - 1, paddle.width + 2, paddle.height + 2);
             e.Graphics.FillRectangle(drawBrush, paddle.x, paddle.y, paddle.width, paddle.height);
+          
 
             // Draws blocks
             foreach (Block b in blocks)
             {
-                switch (b.hp)
-                {
-                    case 1:
-                        drawBrush.Color = Color.Red;
-                        break;
-                    case 2:
-                        drawBrush.Color = Color.Yellow;
-                        break;
-                    case 3:
-                        drawBrush.Color = Color.Green;
-                        break;
-                }
+               
                 e.Graphics.FillRectangle(shadowBrush, b.x + 3, b.y + 3, b.width, b.height);
                 e.Graphics.FillRectangle(blockBrush, b.x, b.y, b.width, b.height);
                 e.Graphics.FillRectangle(drawBrush, b.x + 1, b.y + 1, b.width - 2, b.height - 2);
+
+                switch (b.hp)
+                {
+                    case 1:
+                        drawBrush.Color = Color.White;         
+                        break;
+                    case 2:
+                        drawBrush.Color = Color.White;
+                        e.Graphics.DrawImage(Properties.Resources.LVL2Scratch, b.x, b.y, b.width, b.height);
+                        break;
+                    case 3:
+                        drawBrush.Color = Color.White;
+                        e.Graphics.DrawImage(Properties.Resources.LVL3Scratch, b.x, b.y, b.width, b.height);
+                        break;
+                }
+
             }
 
             foreach (PowerUps p in powerups) { e.Graphics.FillEllipse(powerBrush, p.x, p.y, 25, 25); }
 
             // Draws ball(s)
             drawBrush.Color = Color.White;
-            foreach (Ball b in balls) { e.Graphics.FillRectangle(drawBrush, b.x, b.y, b.size, b.size); }
-            Pen drawPen = new Pen(Color.White);
+            Pen drawPen = new Pen(Color.Black);
 
             if (onPaddle)
             {
-                e.Graphics.DrawLine(drawPen, balls[0].x + 10, balls[0].y + 10, balls[0].x + 10*ballStartSpeedX + 10, balls[0].y - 60);
+                e.Graphics.DrawLine(drawPen, balls[0].x + 10, balls[0].y + 10, balls[0].x + 10 * ballStartSpeedX + 10, balls[0].y - 60);
             }
+
+            foreach (Ball b in balls)
+            {
+                e.Graphics.FillRectangle(shadowBrush, b.x + 3, b.y + 3, b.size, b.size);
+                e.Graphics.FillRectangle(blockBrush, b.x - 1, b.y - 1, b.size + 2, b.size + 2);
+                e.Graphics.FillRectangle(drawBrush, b.x, b.y, b.size, b.size);
+               
+            }
+      
 
             //draw score and lives
             e.Graphics.DrawString("Lives: " + lives, drawFont, drawBrush, 100, 85);
             e.Graphics.DrawString("Score: " + score, drawFont, drawBrush, 100, 100);
+
+
         }
 
         public PowerUps randomGenBoi(int _x, int _y)
@@ -460,25 +486,26 @@ namespace BrickBreaker
 
             switch (level)
             {
-                case 2:
-                    LoadLevel("Resources/level2.xml");
-                    break;
-                case 3:
-                    LoadLevel("Resources / level3.xml");
-                    break;
-                case 4:
-                    LoadLevel("Resources / level4.xml");
-                    break;
-                case 5:
-                    LoadLevel("Resources / level5.xml");
-                    break;
-                case 6:
-                    LoadLevel("Resources / level6.xml");
-                    break;
-                case 7:
-                    LoadLevel("Resources / level7.xml");
-                    break;
-                default:
+
+            case 2:
+                LoadLevel("Resources/level2.xml");
+                break;
+            case 3:
+                LoadLevel("Resources/level3.xml");
+                break;
+            case 4:
+                LoadLevel("Resources/level4.xml");
+                break;
+            case 5:
+                LoadLevel("Resources/level5.xml");
+                break;
+            case 6:
+                LoadLevel("Resources/level6.xml");
+                break;
+            case 7:
+                LoadLevel("Resources/level7.xml");
+                break;
+            default:
                     OnEnd();
                     break;
             }
@@ -491,7 +518,6 @@ namespace BrickBreaker
             // Goes to the game over screen
             Form f = this.FindForm();
             f.Controls.Remove(this);
-            this.Dispose();
             MenuScreen ms = new MenuScreen();
             f.Controls.Add(ms);
         }

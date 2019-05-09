@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-// Dima is a better programer than Carter
+
 namespace BrickBreaker
 {
     public partial class PauseScreen : UserControl
-    {// Dima is a better programer than Carter
+    {
         public PauseScreen()
         {
             InitializeComponent();
@@ -34,16 +34,14 @@ namespace BrickBreaker
         private void exitButton_Click(object sender, EventArgs e)
         {
 
-            if(GameScreen.Twoplayer == true)
-            {
-                GameScreen.Twoplayer = false;
-            }
+
             MenuScreen gs = new MenuScreen();
             Form form = this.FindForm();
             form.Controls.Add(gs);
             form.Controls.Remove(this);
 
             gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
+
         }
     }
-}// Dima is a better programer than Carter
+}

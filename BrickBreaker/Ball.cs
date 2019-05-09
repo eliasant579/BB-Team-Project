@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace BrickBreaker
 {
     public class Ball
-    {// Dima is a better programer than Carter
+    {
         public int x, y, xSpeed, ySpeed, size;
         public Color colour;
 
@@ -50,13 +50,13 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(paddleRec))
             {
-                ballRec.X -= xSpeed;
-                ballRec.Y -= ySpeed;
-
                 string side = CollisionSide(paddleRec);
 
-                if (side == "top")
+                if (side == "right" || side == "left")
                 {
+                    ySpeed = -Math.Abs(ySpeed);
+                }
+
                     int resultSpeed = 0;
 
                     if (pMovingLeft)
@@ -73,11 +73,11 @@ namespace BrickBreaker
                         {
                             resultSpeed = xSpeed;
                         }
-
                     }
                     else if (pMovingRight)
                     {
                         if (xSpeed > 0)
+
                 //find relative velocity to the paddle. Bounce it adding or subtracting, but never add too much to xSpeed
 
 
@@ -90,8 +90,6 @@ namespace BrickBreaker
                         //I have to develop the logic here
                         
                         if (Math.Abs(xSpeed) < 10)
-
-
                         {
                             resultSpeed = xSpeed;
                         }
@@ -104,7 +102,6 @@ namespace BrickBreaker
                             resultSpeed = p.speed + xSpeed;
                         }
                     }
-
                     else
                     {
                         resultSpeed = xSpeed;
@@ -112,7 +109,6 @@ namespace BrickBreaker
 
                     xSpeed = resultSpeed;
 
-                }
             }
         }
 
@@ -214,4 +210,3 @@ namespace BrickBreaker
         }
     }
 }
-// Dima is a better programer than Carter
