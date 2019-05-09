@@ -33,6 +33,25 @@ namespace BrickBreaker.Screens
         List<int> highscores = new List<int>();
         List<Paddle> paddles = new List<Paddle>();
 
+
+        List<Ball> balls = new List<Ball>();
+
+
+        // Brushes
+        SolidBrush paddleBrush = new SolidBrush(Color.White);
+        SolidBrush ballBrush = new SolidBrush(Color.White);
+        SolidBrush blockBrush = new SolidBrush(Color.Black);
+        SolidBrush drawBrush = new SolidBrush(Color.Tan);
+        SolidBrush shadowBrush = new SolidBrush(Color.LightGray);
+        Font drawFont = new Font("Arial", 12);
+
+        #endregion
+
+        public TwoPlayer()
+        {
+            InitializeComponent();
+            OnStart();
+        }
         private void TwoPlayer_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             //player 1 and 2 button presses
@@ -101,18 +120,6 @@ namespace BrickBreaker.Screens
             }
         }
 
-        List<Ball> balls = new List<Ball>();
-
-
-        // Brushes
-        SolidBrush paddleBrush = new SolidBrush(Color.White);
-        SolidBrush ballBrush = new SolidBrush(Color.White);
-        SolidBrush blockBrush = new SolidBrush(Color.Black);
-        SolidBrush drawBrush = new SolidBrush(Color.Tan);
-        SolidBrush shadowBrush = new SolidBrush(Color.LightGray);
-        Font drawFont = new Font("Arial", 12);
-
-        #endregion
         public void LoadLevel(string level)
         {
             //creates variables and xml reader needed
@@ -146,11 +153,7 @@ namespace BrickBreaker.Screens
                 }
             }
         }
-        public TwoPlayer()
-        {
-            InitializeComponent();
-            OnStart();
-        }
+      
 
         public void OnStart()
         {
@@ -188,8 +191,8 @@ namespace BrickBreaker.Screens
             //move paddle left and right
             if (leftArrowDown && pad.x > 0) { pad.Move("left"); }
             if (rightArrowDown && pad.x < (this.Width - pad.width)) { pad.Move("right"); }
-            if (aKeyDown == true && pad2.x > 0) { pad.Move("left"); }
-            if (dKeyDown && pad2.x < (this.Width - pad2.width)) { pad2.Move("right"); }
+            if (aKeyDown == true && pad2.x > 0) { pad2.Move("left"); }
+            if (dKeyDown == true && pad2.x < (this.Width - pad2.width)) { pad2.Move("right"); }
 
             //Side Wall Collsion
             foreach (Ball b in balls) { b.WallCollision(this); }
@@ -206,10 +209,36 @@ namespace BrickBreaker.Screens
 
                 ps.Location = new Point((form.Width - ps.Width) / 2, (form.Height - ps.Height) / 2);
             }
-
+            //Paddle Collsion
+            foreach (Ball b in balls) { b.PaddleCollision(pad, leftArrowDown, rightArrowDown); }
+            foreach (Ball b in balls) { b.PaddleCollision(pad2, aKeyDown, dKeyDown); }
             // move ball
             foreach (Ball b in balls)
             { ball.Move(); }
+            foreach (Ball a in balls)
+            {
+                foreach (Block b in blocks)
+                {
+                    if (a.BlockCollision(b))
+                    {
+                        b.hp--;
+                        if (b.hp == 0)
+                        {                         
+                            blocks.Remove(b);
+                            break;
+                        }
+                    }
+
+                    //if all blocks are broken go to next level
+                    if (blocks.Count == 0)
+                    {
+                        //TODO NEXT LEVEL
+                        break;
+                    }
+                }
+            }
+
+            Refresh();
         }
         private void twoPlayer_Paint(object sender, PaintEventArgs e)
         {
