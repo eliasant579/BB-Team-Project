@@ -56,7 +56,7 @@ namespace BrickBreaker
         SolidBrush blockBrush2 = new SolidBrush(Color.White);
         SolidBrush shadowBrush = new SolidBrush(Color.LightGray);
         SolidBrush powerBrush = new SolidBrush(Color.White);
-        Font drawFont = new Font("Arial", 12);
+        Font drawFont = new Font("Arial", 8);
 
         Stopwatch smallPAddleWatch = new Stopwatch();
         Stopwatch largePaddleWatch = new Stopwatch();
@@ -470,8 +470,9 @@ namespace BrickBreaker
       
 
             //draw score and lives
-            e.Graphics.DrawString("Lives: " + lives, drawFont, drawBrush, 100, 85);
-            e.Graphics.DrawString("Score: " + score, drawFont, drawBrush, 100, 100);
+            drawBrush.Color = Color.Black;
+            for (int i = 0; i < lives; i++){ e.Graphics.DrawImage(Properties.Resources.lifeBoi, 715 + (20 * i), 10, 20, 20);}              
+            e.Graphics.DrawString("Score: " + score, drawFont, drawBrush, 715, 35);
 
 
         }
