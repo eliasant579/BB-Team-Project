@@ -128,7 +128,7 @@
 
         private System.Windows.Forms.Button playButton;
         private System.Windows.Forms.Button exitButton;
-
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button twoPlayerButton;
 
     }
