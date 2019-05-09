@@ -66,6 +66,8 @@ namespace BrickBreaker
 
         #endregion
 
+       
+
         public GameScreen()
         {
             InitializeComponent();
@@ -103,6 +105,8 @@ namespace BrickBreaker
 
             // start the game engine loop
             gameTimer.Enabled = true;
+
+          
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
