@@ -7,7 +7,9 @@ namespace BrickBreaker
     public class Ball
     {
         public int x, y, xSpeed, ySpeed, size;
-        public Color colour;
+        //public bool wasColliding;
+        //public Point currentCollidingBlock;
+        //public Color colour;
 
         public static Random rand = new Random();
 
@@ -18,6 +20,7 @@ namespace BrickBreaker
             xSpeed = _xSpeed;
             ySpeed = _ySpeed;
             size = _ballSize;
+            //wasColliding = false;
         }
 
         public void Move()
@@ -33,63 +36,52 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(blockRec))
             {
-                string side = CollisionSide(blockRec);
-            }
+                /*
+                if (wasColliding == false && currentCollidingBlock != new Point(b.x, b.y))
+                {
+                    CollisionSide(blockRec);
+                    wasColliding = true;
+                    currentCollidingBlock = new Point(b.x, b.y);
+                }
+                */
+                CollisionSide(blockRec);
 
+            }
+            /*
+            else
+            {
+                wasColliding = false;
+                currentCollidingBlock = Point.Empty;
+            }
+            */
             return blockRec.IntersectsWith(ballRec);
         }
 
         public void PaddleCollision(Paddle p, bool pMovingLeft, bool pMovingRight)
         {
-            //make sure to develop the physics behind this stuff
-            //so angles and such
-            //this should change the angle at which the ball is travelling
-
             Rectangle ballRec = new Rectangle(x, y, size, size);
             Rectangle paddleRec = new Rectangle(p.x, p.y, p.width, p.height);
 
             if (ballRec.IntersectsWith(paddleRec))
             {
                 string side = CollisionSide(paddleRec);
-
                 if (side == "right" || side == "left")
                 {
                     ySpeed = -Math.Abs(ySpeed);
                 }
 
-                    int resultSpeed = 0;
+                int resultSpeed = 0;
 
-                    if (pMovingLeft)
+                if (pMovingLeft)
+                {
+                    if (xSpeed > 0)
                     {
-                        if (xSpeed > 0)
-                        {
-                            resultSpeed = -p.speed + xSpeed;
-                        }
-                        else if (xSpeed == 0)
-                        {
-                            resultSpeed = - p.speed / 4;
-                        }
-                        else
-                        {
-                            resultSpeed = xSpeed;
-                        }
+                        resultSpeed = -p.speed + xSpeed;
                     }
-                    else if (pMovingRight)
+                    else if (xSpeed == 0)
                     {
+
                         if (xSpeed > 0)
-
-                //find relative velocity to the paddle. Bounce it adding or subtracting, but never add too much to xSpeed
-
-
-                       // #region Eh
-
-                        //ySpeed = Convert.ToInt16(xSpeed * tan);
-
-                        //ySpeed = Convert.ToInt16(Math.Sqrt(Math.Abs(velocity * velocity + xSpeed * xSpeed))) / 2;
-
-                        //I have to develop the logic here
-                        
-                        if (Math.Abs(xSpeed) < 10)
                         {
                             resultSpeed = xSpeed;
                         }
@@ -101,14 +93,35 @@ namespace BrickBreaker
                         {
                             resultSpeed = p.speed + xSpeed;
                         }
+
+                        resultSpeed = -p.speed / 4;
                     }
                     else
                     {
                         resultSpeed = xSpeed;
                     }
+                }
+                else if (pMovingRight)
+                {
+                    if (xSpeed > 0)
+                    {
+                        resultSpeed = xSpeed;
+                    }
+                    else if (xSpeed == 0)
+                    {
+                        resultSpeed = p.speed / 4;
+                    }
+                    else
+                    {
+                        resultSpeed = p.speed + xSpeed;
+                    }
+                }
+                else
+                {
+                    resultSpeed = xSpeed;
+                }
 
-                    xSpeed = resultSpeed;
-
+                xSpeed = resultSpeed;
             }
         }
 
@@ -129,6 +142,7 @@ namespace BrickBreaker
             {
                 ySpeed = Math.Abs(ySpeed);
             }
+            /*
             //Checks for bottom wall collsion if two player
             if(GameScreen.Twoplayer == true)
             {
@@ -136,7 +150,8 @@ namespace BrickBreaker
                 {
                     ySpeed *= -1;
                 }
-            }            
+            } 
+            */
         }
 
         public bool BottomCollision(UserControl UC)
@@ -151,13 +166,14 @@ namespace BrickBreaker
             return didCollide;
         }
 
+
         /// <summary>
         /// Given the colliding rectangle finds which sides are colliding
         /// </summary>
         /// <param name="r">Colliding rectangle</param>
         /// <returns>Side as a string</returns>
         public string CollisionSide(Rectangle r)
-        {            
+        {
             //this algorothm is also known as the Minkowski sum
             //manage collision on all sides
 

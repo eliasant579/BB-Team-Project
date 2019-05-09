@@ -71,6 +71,25 @@ namespace BrickBreaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream BackMusic {
+            get {
+                return ResourceManager.GetStream("BackMusic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BackMusicMP3 {
+            get {
+                object obj = ResourceManager.GetObject("BackMusicMP3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ball {
@@ -313,7 +332,8 @@ namespace BrickBreaker.Properties {
         ///  &lt;/Brick&gt;
         ///
         ///  &lt;Brick&gt;
-        ///    &lt;x&gt;502&lt;/x&gt;        /// [rest of string was truncated]&quot;;.
+        ///    &lt;x&gt;502&lt;/x&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level4 {
             get {
@@ -502,7 +522,20 @@ namespace BrickBreaker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+
+        internal static System.Drawing.Bitmap MenuScreenWhighscore {
+            get {
+                object obj = ResourceManager.GetObject("MenuScreenWhighscore", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+       
         internal static System.Drawing.Bitmap MAINSCREEN2PLAYER {
+
             get {
                 object obj = ResourceManager.GetObject("MAINSCREEN2PLAYER", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

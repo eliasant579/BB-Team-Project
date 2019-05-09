@@ -166,13 +166,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Resources\level6.xml" />
-    <None Include="bin\Debug\Resources\level4.xml" />
+
     <Content Include="level1.xml" />
     <None Include="Resources\LVL2Scratch.png" />
     <None Include="Resources\LVL3Scratch.png" />
     <None Include="Resources\MAINSCREEN2PLAYER.jpg" />
+
     <None Include="Resources\powerups.zip" />
+
     <None Include="Resources\SMALLBALL.png" />
     <None Include="Resources\SMALLPADDLE2.png" />
     <None Include="Resources\SMALLPADDLE.png" />
@@ -188,8 +189,13 @@
     <None Include="Resources\ball.png" />
   </ItemGroup>
   <ItemGroup>
+
+    <None Include="Resources\Desert.wav" />
+    <None Include="Resources\elmobo - Pac in Time OST %28DOS AdLib%29 - 01 Desert.mp3" />
+
     <None Include="Resources\enlargedBoi.png" />
     <None Include="Resources\fastBoi.png" />
+
     <Content Include="Resources\level5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -210,11 +216,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\level7.xml" />
+
+    <None Include="Resources\MenuScreenWhighscore.jpg" />
+
     <None Include="Resources\lifeBoi.png" />
     <None Include="Resources\multiBoi.png" />
     <None Include="Resources\slowBoi.png" />
-    <None Include="Resources\smallBoi.png" />
-    <Content Include="Resources\twoplayerlevel1.xml">
+    <None Include="Resources\twoplayerlevel1.xml"/>
+    <Content Include="Resources\smallBoi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
