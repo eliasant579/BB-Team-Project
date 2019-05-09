@@ -7,17 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Media;
+using BrickBreaker.Screens;
 
 namespace BrickBreaker
 {
     public partial class MenuScreen : UserControl
     {
-
         public MenuScreen()
         {
             InitializeComponent();
-            
 
         }
 
@@ -25,7 +23,6 @@ namespace BrickBreaker
         {
             Application.Exit();
         }
-
 
         private void playButton_Click(object sender, EventArgs e)
         {
@@ -41,9 +38,7 @@ namespace BrickBreaker
 
         private void TwoplayerButton_Click(object sender, EventArgs e)
         {
-            //Sets 2 Player to true
-            GameScreen.Twoplayer = true;
-            GameScreen gs = new GameScreen();
+            TwoPlayer  gs = new TwoPlayer();
             Form form = this.FindForm();
 
             form.Controls.Add(gs);

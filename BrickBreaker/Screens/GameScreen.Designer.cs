@@ -128,7 +128,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::BrickBreaker.Properties.Resources.Background;
+
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "GameScreen";
