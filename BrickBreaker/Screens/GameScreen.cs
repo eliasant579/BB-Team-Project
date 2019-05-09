@@ -76,7 +76,7 @@ namespace BrickBreaker
         {
             //set life counter
             lives = 3;
-            level = 1;
+            level = 0;
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = aKeyDown = dKeyDown = false;
@@ -97,7 +97,7 @@ namespace BrickBreaker
 
             //load score
             //loadScore();
-            LoadLevel("Resources/level1.xml");
+            NextLevel();
 
             aimWatch.Start();
 
@@ -271,23 +271,26 @@ namespace BrickBreaker
                         b.hp--;
                         if (b.hp == 0)
                         {
-                            score += 50;
-                            /*if (rng.Next(1, 2) == 2) */
-                            powerups.Add(randomGenBoi(b.x, b.y));
+                            score += 100;
+                            if (rng.Next(1, 9) == 7)
+                            {
+                                powerups.Add(randomGenBoi(b.x, b.y));
+                            }
+
                             blocks.Remove(b);
                             break;
                         }
                     }
 
-                    //if all blocks are broken go to next level
-                    if (blocks.Count == 0)
-                    {
-                        NextLevel();
-                        break;
-                    }
+                    
                 }
             }
 
+            //if all blocks are broken go to next level
+            if (blocks.Count == 0)
+            {
+                NextLevel();
+            }
             //move powerups
             foreach (PowerUps p in powerups)
             {
@@ -303,6 +306,7 @@ namespace BrickBreaker
             {
                 if (p.Collision(paddle))
                 {
+                    score += 50;
                     switch (p.name)
                     {
                         case "multiBoi":
@@ -506,35 +510,39 @@ namespace BrickBreaker
 
 
         #region Death and moving on
-        public void NextLevel ()
+        public void NextLevel()
         {
-           level++;
+            level++;
 
             switch (level)
             {
-
-            case 2:
-                LoadLevel("Resources/level2.xml");
-                break;
-            case 3:
-                LoadLevel("Resources/level3.xml");
-                break;
-            case 4:
-                LoadLevel("Resources/level4.xml");
-                break;
-            case 5:
-                LoadLevel("Resources/level5.xml");
-                break;
-            case 6:
-                LoadLevel("Resources/level6.xml");
-                break;
-            case 7:
-                LoadLevel("Resources/level7.xml");
-                break;
-            default:
+                case 1:
+                    LoadLevel("Resources/level1.xml");
+                    break;
+                case 2:
+                    LoadLevel("Resources/level2.xml");
+                    break;
+                case 3:
+                    LoadLevel("Resources/level3.xml");
+                    break;
+                case 4:
+                    LoadLevel("Resources/level4.xml");
+                    break;
+                case 5:
+                    LoadLevel("Resources/level5.xml");
+                    break;
+                case 6:
+                    LoadLevel("Resources/level6.xml");
+                    break;
+                case 7:
+                    LoadLevel("Resources/level7.xml");
+                    break;
+                default:
                     OnEnd();
                     break;
             }
+
+            OnDeath();
         }
         
         public void OnEnd()
@@ -555,7 +563,6 @@ namespace BrickBreaker
             ball.y = ballStartY;
             balls[0].xSpeed = 0;
             balls[0].ySpeed = 0;
-            
         }
         #endregion
 
