@@ -1,6 +1,6 @@
 ﻿namespace BrickBreaker.Screens
 {
-    partial class twoPlayer
+    partial class TwoPlayer
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,10 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
+            this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.SuspendLayout();
+            // 
+            // gameTimer
+            // 
+            this.gameTimer.Enabled = true;
+            this.gameTimer.Interval = 20;
+            this.gameTimer.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // TwoPlayer
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Name = "TwoPlayer";
+            this.Size = new System.Drawing.Size(850, 550);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.twoPlayer_Paint);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TwoPlayer_KeyUp);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TwoPlayer_PreviewKeyDown);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer gameTimer;
     }
 }

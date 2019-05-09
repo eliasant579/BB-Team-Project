@@ -7,17 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 
 namespace BrickBreaker
 {
     public partial class Form1 : Form
-    {// Dima is a better programer than Carter
+    {
         //Jamal's Branch
 
         public Form1()
         {
             InitializeComponent();
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -29,4 +31,4 @@ namespace BrickBreaker
             ms.Location = new Point((this.Width - ms.Width) / 2, (this.Height - ms.Height) / 2);
         }
     }
-}// Dima is a better programer than Carter
+}

@@ -5,8 +5,9 @@ using System.Windows.Forms;
 namespace BrickBreaker
 {
     public class Ball
-    {// Dima is a better programer than Carter
+    {
         public int x, y, xSpeed, ySpeed, size;
+        public bool wasColliding;
         public Color colour;
 
         public static Random rand = new Random();
@@ -18,6 +19,7 @@ namespace BrickBreaker
             xSpeed = _xSpeed;
             ySpeed = _ySpeed;
             size = _ballSize;
+            wasColliding = false;
         }
 
         public void Move()
@@ -50,48 +52,24 @@ namespace BrickBreaker
 
             if (ballRec.IntersectsWith(paddleRec))
             {
-                ballRec.X -= xSpeed;
-                ballRec.Y -= ySpeed;
-
                 string side = CollisionSide(paddleRec);
-
-                if (side == "top")
+                if (side == "right" || side == "left")
                 {
-                    int resultSpeed = 0;
+                    ySpeed = -Math.Abs(ySpeed);
+                }
 
-                    if (pMovingLeft)
+                int resultSpeed = 0;
+
+                if (pMovingLeft)
+                {
+                    if (xSpeed > 0)
                     {
-                        if (xSpeed > 0)
-                        {
-                            resultSpeed = -p.speed + xSpeed;
-                        }
-                        else if (xSpeed == 0)
-                        {
-                            resultSpeed = - p.speed / 4;
-                        }
-                        else
-                        {
-                            resultSpeed = xSpeed;
-                        }
-
+                        resultSpeed = -p.speed + xSpeed;
                     }
-                    else if (pMovingRight)
+                    else if (xSpeed == 0)
                     {
+
                         if (xSpeed > 0)
-                //find relative velocity to the paddle. Bounce it adding or subtracting, but never add too much to xSpeed
-
-
-                       // #region Eh
-
-                        //ySpeed = Convert.ToInt16(xSpeed * tan);
-
-                        //ySpeed = Convert.ToInt16(Math.Sqrt(Math.Abs(velocity * velocity + xSpeed * xSpeed))) / 2;
-
-                        //I have to develop the logic here
-                        //*
-                        if (Math.Abs(xSpeed) < 10)
-
-
                         {
                             resultSpeed = xSpeed;
                         }
@@ -103,16 +81,35 @@ namespace BrickBreaker
                         {
                             resultSpeed = p.speed + xSpeed;
                         }
-                    }
 
+                        resultSpeed = -p.speed / 4;
+                    }
                     else
                     {
                         resultSpeed = xSpeed;
                     }
-
-                    xSpeed = resultSpeed;
-
                 }
+                else if (pMovingRight)
+                {
+                    if (xSpeed > 0)
+                    {
+                        resultSpeed = xSpeed;
+                    }
+                    else if (xSpeed == 0)
+                    {
+                        resultSpeed = p.speed / 4;
+                    }
+                    else
+                    {
+                        resultSpeed = p.speed + xSpeed;
+                    }
+                }
+                else
+                {
+                    resultSpeed = xSpeed;
+                }
+
+                xSpeed = resultSpeed;
             }
         }
 
@@ -133,6 +130,7 @@ namespace BrickBreaker
             {
                 ySpeed = Math.Abs(ySpeed);
             }
+            /*
             //Checks for bottom wall collsion if two player
             if(GameScreen.Twoplayer == true)
             {
@@ -140,7 +138,8 @@ namespace BrickBreaker
                 {
                     ySpeed *= -1;
                 }
-            }            
+            } 
+            */
         }
 
         public bool BottomCollision(UserControl UC)
@@ -155,13 +154,14 @@ namespace BrickBreaker
             return didCollide;
         }
 
+
         /// <summary>
         /// Given the colliding rectangle finds which sides are colliding
         /// </summary>
         /// <param name="r">Colliding rectangle</param>
         /// <returns>Side as a string</returns>
         public string CollisionSide(Rectangle r)
-        {            
+        {
             //this algorothm is also known as the Minkowski sum
             //manage collision on all sides
 
@@ -214,4 +214,3 @@ namespace BrickBreaker
         }
     }
 }
-// Dima is a better programer than Carter
