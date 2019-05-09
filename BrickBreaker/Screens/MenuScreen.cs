@@ -36,9 +36,9 @@ namespace BrickBreaker
             gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
         }
 
-        private void TwoplayerButton_Click(object sender, EventArgs e)
+        private void twoPlayerButton_Click_1(object sender, EventArgs e)
         {
-            TwoPlayer  gs = new TwoPlayer();
+            TwoPlayer gs = new TwoPlayer();
             Form form = this.FindForm();
 
             form.Controls.Add(gs);

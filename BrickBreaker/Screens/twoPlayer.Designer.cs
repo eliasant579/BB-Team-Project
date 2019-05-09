@@ -35,17 +35,19 @@
             // gameTimer
             // 
             this.gameTimer.Enabled = true;
-            this.gameTimer.Interval = 16;
+            this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // twoPlayer
+            // TwoPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Name = "twoPlayer"; 
+            this.Name = "TwoPlayer";
             this.Size = new System.Drawing.Size(850, 550);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.twoPlayer_Paint);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TwoPlayer_KeyUp);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TwoPlayer_PreviewKeyDown);
             this.ResumeLayout(false);
 
         }

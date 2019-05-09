@@ -66,6 +66,8 @@ namespace BrickBreaker
 
         #endregion
 
+       
+
         public GameScreen()
         {
             InitializeComponent();
@@ -76,7 +78,7 @@ namespace BrickBreaker
         {
             //set life counter
             lives = 3;
-            level = 1;
+            level = 0;
 
             //set all button presses to false.
             leftArrowDown = rightArrowDown = aKeyDown = dKeyDown = false;
@@ -97,12 +99,14 @@ namespace BrickBreaker
 
             //load score
             //loadScore();
-            LoadLevel("Resources/level1.xml");
+            NextLevel();
 
             aimWatch.Start();
 
             // start the game engine loop
             gameTimer.Enabled = true;
+
+          
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -225,7 +229,10 @@ namespace BrickBreaker
             }
 
             // move ball
-            foreach (Ball b in balls) { b.Move(); }
+            if (onPaddle == false)
+            {
+                foreach (Ball b in balls) { b.Move(); }
+            }
 
             //check for ball hitting side of screen
             foreach (Ball b in balls) { b.WallCollision(this); }
@@ -235,10 +242,8 @@ namespace BrickBreaker
             {
                 if (b.BottomCollision(this))
                 {
-
                     if (balls.Count == 1)
                     {
-          
                         lives--;
                         if (lives == 0)
                         {
@@ -270,22 +275,26 @@ namespace BrickBreaker
                         b.hp--;
                         if (b.hp == 0)
                         {
-                            score += 50;
-                            if (rng.Next(1, 9) == 7) { powerups.Add(randomGenBoi(b.x, b.y)); }
+                            score += 100;
+                            if (rng.Next(1, 9) == 7)
+                            {
+                                powerups.Add(randomGenBoi(b.x, b.y));
+                            }
+
                             blocks.Remove(b);
                             break;
                         }
                     }
 
-                    //if all blocks are broken go to next level
-                    if (blocks.Count == 0)
-                    {
-                        NextLevel();
-                        break;
-                    }
+                    
                 }
             }
 
+            //if all blocks are broken go to next level
+            if (blocks.Count == 0)
+            {
+                NextLevel();
+            }
             //move powerups
             foreach (PowerUps p in powerups)
             {
@@ -301,6 +310,7 @@ namespace BrickBreaker
             {
                 if (p.Collision(paddle))
                 {
+                    score += 50;
                     switch (p.name)
                     {
                         case "multiBoi":
@@ -392,12 +402,12 @@ namespace BrickBreaker
             e.Graphics.FillRectangle(shadowBrush, paddle.x + 3, paddle.y + 3, paddle.width, paddle.height);
             e.Graphics.FillRectangle(blockBrush, paddle.x - 1, paddle.y - 1, paddle.width + 2, paddle.height + 2);
             e.Graphics.FillRectangle(drawBrush, paddle.x, paddle.y, paddle.width, paddle.height);
-          
+
 
             // Draws blocks
             foreach (Block b in blocks)
             {
-               
+
                 e.Graphics.FillRectangle(shadowBrush, b.x + 3, b.y + 3, b.width, b.height);
                 e.Graphics.FillRectangle(blockBrush, b.x, b.y, b.width, b.height);
                 e.Graphics.FillRectangle(drawBrush, b.x + 1, b.y + 1, b.width - 2, b.height - 2);
@@ -405,7 +415,7 @@ namespace BrickBreaker
                 switch (b.hp)
                 {
                     case 1:
-                        drawBrush.Color = Color.White;         
+                        drawBrush.Color = Color.White;
                         break;
                     case 2:
                         drawBrush.Color = Color.White;
@@ -419,7 +429,31 @@ namespace BrickBreaker
 
             }
 
-            foreach (PowerUps p in powerups) { e.Graphics.FillEllipse(powerBrush, p.x, p.y, 25, 25); }
+            //draw powerups
+            foreach (PowerUps p in powerups)
+            {
+                switch (p.name)
+                {
+                    case "multiBoi":
+                        e.Graphics.DrawImage(Properties.Resources.multiBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "lifeBoi":
+                        e.Graphics.DrawImage(Properties.Resources.lifeBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "smallBoi":
+                        e.Graphics.DrawImage(Properties.Resources.smallBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "enlargedBoi":
+                        e.Graphics.DrawImage(Properties.Resources.enlargedBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "slowBoi":
+                        e.Graphics.DrawImage(Properties.Resources.slowBoi, p.x, p.y, 40, 40);
+                        break;
+                    case "fastBoi":
+                        e.Graphics.DrawImage(Properties.Resources.fastBoi, p.x, p.y, 40, 40);
+                        break;
+                }
+            }
 
             // Draws ball(s)
             drawBrush.Color = Color.White;
@@ -480,35 +514,39 @@ namespace BrickBreaker
 
 
         #region Death and moving on
-        public void NextLevel ()
+        public void NextLevel()
         {
-           level++;
+            level++;
 
             switch (level)
             {
-
-            case 2:
-                LoadLevel("Resources/level2.xml");
-                break;
-            case 3:
-                LoadLevel("Resources/level3.xml");
-                break;
-            case 4:
-                LoadLevel("Resources/level4.xml");
-                break;
-            case 5:
-                LoadLevel("Resources/level5.xml");
-                break;
-            case 6:
-                LoadLevel("Resources/level6.xml");
-                break;
-            case 7:
-                LoadLevel("Resources/level7.xml");
-                break;
-            default:
+                case 1:
+                    LoadLevel("Resources/level1.xml");
+                    break;
+                case 2:
+                    LoadLevel("Resources/level2.xml");
+                    break;
+                case 3:
+                    LoadLevel("Resources/level3.xml");
+                    break;
+                case 4:
+                    LoadLevel("Resources/level4.xml");
+                    break;
+                case 5:
+                    LoadLevel("Resources/level5.xml");
+                    break;
+                case 6:
+                    LoadLevel("Resources/level6.xml");
+                    break;
+                case 7:
+                    LoadLevel("Resources/level7.xml");
+                    break;
+                default:
                     OnEnd();
                     break;
             }
+
+            OnDeath();
         }
         
         public void OnEnd()
@@ -529,7 +567,6 @@ namespace BrickBreaker
             ball.y = ballStartY;
             balls[0].xSpeed = 0;
             balls[0].ySpeed = 0;
-            
         }
         #endregion
 
