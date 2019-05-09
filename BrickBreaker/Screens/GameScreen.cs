@@ -480,7 +480,7 @@ namespace BrickBreaker
         {
             Random rnd = new Random();
 
-            int randomNumber = rnd.Next(1, 106);
+            int randomNumber = rnd.Next(0, 60);
 
             if (randomNumber <= 10)
             {
@@ -490,15 +490,15 @@ namespace BrickBreaker
             {
                 return new PowerUps(_x, _y, "fastBoi");
             }
-            else if (randomNumber <= 35)
+            else if (randomNumber <= 30)
             {
                 return new PowerUps(_x, _y, "slowBoi");
             }
-            else if (randomNumber <= 55)
+            else if (randomNumber <= 40)
             {
                 return new PowerUps(_x, _y, "smallBoi");
             }
-            else if (randomNumber <= 80)
+            else if (randomNumber <= 50)
             {
                 return new PowerUps(_x, _y, "enlargedBoi");
             }
@@ -513,6 +513,7 @@ namespace BrickBreaker
         public void NextLevel()
         {
             level++;
+            powerups.Clear();
 
             switch (level)
             {
