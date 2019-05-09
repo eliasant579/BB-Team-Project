@@ -7,6 +7,7 @@ namespace BrickBreaker
     public class Ball
     {
         public int x, y, xSpeed, ySpeed, size;
+        public bool wasColliding;
         public Color colour;
 
         public static Random rand = new Random();
@@ -18,6 +19,7 @@ namespace BrickBreaker
             xSpeed = _xSpeed;
             ySpeed = _ySpeed;
             size = _ballSize;
+            wasColliding = false;
         }
 
         public void Move()
@@ -51,66 +53,49 @@ namespace BrickBreaker
             if (ballRec.IntersectsWith(paddleRec))
             {
                 string side = CollisionSide(paddleRec);
-
-                if (side == "top")
+                if (side == "right" || side == "left")
                 {
-                    int resultSpeed = 0;
+                    ySpeed = -Math.Abs(ySpeed);
+                }
 
-                    if (pMovingLeft)
+                int resultSpeed = 0;
+
+                if (pMovingLeft)
+                {
+                    if (xSpeed > 0)
                     {
-                        if (xSpeed > 0)
-                        {
-                            resultSpeed = -p.speed + xSpeed;
-                        }
-                        else if (xSpeed == 0)
-                        {
-                            resultSpeed = - p.speed / 4;
-                        }
-                        else
-                        {
-                            resultSpeed = xSpeed;
-                        }
-
+                        resultSpeed = -p.speed + xSpeed;
                     }
-                    else if (pMovingRight)
+                    else if (xSpeed == 0)
                     {
-                        if (xSpeed > 0)
-                        {
-                            resultSpeed = xSpeed;
-                        }
-                        else if (xSpeed == 0)
-                        {
-                            resultSpeed = p.speed / 4;
-                        }
-                        else
-                        {
-                            resultSpeed = p.speed + xSpeed;
-                        }
+                        resultSpeed = -p.speed / 4;
                     }
                     else
                     {
                         resultSpeed = xSpeed;
                     }
-
-                    xSpeed = resultSpeed;
-
                 }
-
-                //I don't tyhink this works. I'm working on it, it won't take long
-                else if (side == "left" || side == "right")
+                else if (pMovingRight)
                 {
-                    /*
-                    if (side == "left")
+                    if (xSpeed > 0)
                     {
-                        xSpeed = Math.Abs(xSpeed);
+                        resultSpeed = xSpeed;
+                    }
+                    else if (xSpeed == 0)
+                    {
+                        resultSpeed = p.speed / 4;
                     }
                     else
                     {
-                        xSpeed = - Math.Abs(xSpeed);
+                        resultSpeed = p.speed + xSpeed;
                     }
-                    */
-                    xSpeed += p.speed;
                 }
+                else
+                {
+                    resultSpeed = xSpeed;
+                }
+
+                xSpeed = resultSpeed;
             }
         }
 
@@ -131,6 +116,7 @@ namespace BrickBreaker
             {
                 ySpeed = Math.Abs(ySpeed);
             }
+            /*
             //Checks for bottom wall collsion if two player
             if(GameScreen.Twoplayer == true)
             {
@@ -138,7 +124,8 @@ namespace BrickBreaker
                 {
                     ySpeed *= -1;
                 }
-            }            
+            } 
+            */
         }
 
         public bool BottomCollision(UserControl UC)
@@ -153,13 +140,14 @@ namespace BrickBreaker
             return didCollide;
         }
 
+
         /// <summary>
         /// Given the colliding rectangle finds which sides are colliding
         /// </summary>
         /// <param name="r">Colliding rectangle</param>
         /// <returns>Side as a string</returns>
         public string CollisionSide(Rectangle r)
-        {            
+        {
             //this algorothm is also known as the Minkowski sum
             //manage collision on all sides
 

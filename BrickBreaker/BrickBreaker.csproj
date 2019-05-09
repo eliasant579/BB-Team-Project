@@ -69,6 +69,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Paddle.cs" />
+    <Compile Include="PauseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PauseForm.Designer.cs">
+      <DependentUpon>PauseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,6 +115,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PauseForm.resx">
+      <DependentUpon>PauseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Screens\highscoreScreen.resx">
       <DependentUpon>highscoreScreen.cs</DependentUpon>
@@ -157,10 +166,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+
     <Content Include="level1.xml" />
     <None Include="Resources\LVL2Scratch.png" />
     <None Include="Resources\LVL3Scratch.png" />
     <None Include="Resources\MAINSCREEN2PLAYER.jpg" />
+
+    <None Include="Resources\powerups.zip" />
+
     <None Include="Resources\SMALLBALL.png" />
     <None Include="Resources\SMALLPADDLE2.png" />
     <None Include="Resources\SMALLPADDLE.png" />
@@ -176,13 +189,17 @@
     <None Include="Resources\ball.png" />
   </ItemGroup>
   <ItemGroup>
+
     <None Include="Resources\Desert.wav" />
     <None Include="Resources\elmobo - Pac in Time OST %28DOS AdLib%29 - 01 Desert.mp3" />
+
+    <None Include="Resources\enlargedBoi.png" />
+    <None Include="Resources\fastBoi.png" />
+
     <Content Include="Resources\level5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="bin\Debug\Resources\level5.xml" />
     <Content Include="Resources\level1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -191,7 +208,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Resources\level3.xml" />
     <Content Include="Resources\level4.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -200,8 +216,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\level7.xml" />
+
     <None Include="Resources\MenuScreenWhighscore.jpg" />
-    <Content Include="Resources\twoplayerlevel1.xml">
+
+    <None Include="Resources\lifeBoi.png" />
+    <None Include="Resources\multiBoi.png" />
+    <None Include="Resources\slowBoi.png" />
+    <None Include="Resources\twoplayerlevel1.xml"/>
+    <Content Include="Resources\smallBoi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
