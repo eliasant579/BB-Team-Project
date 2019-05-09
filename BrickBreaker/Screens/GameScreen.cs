@@ -228,7 +228,7 @@ namespace BrickBreaker
             foreach (Ball b in balls) { b.Move(); }
 
             //check for ball hitting side of screen
-            //foreach (Ball b in balls) { b.WallCollision(this); }
+            foreach (Ball b in balls) { b.WallCollision(this); }
 
             // Check for ball hitting bottom of screen
             foreach (Ball b in balls)
