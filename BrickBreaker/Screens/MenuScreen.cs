@@ -16,7 +16,8 @@ namespace BrickBreaker
         public MenuScreen()
         {
             InitializeComponent();
-
+            Form form = Form1.ActiveForm;
+            this.Location = new Point((form.Width - this.Width) / 2, (form.Height - this.Height) / 2);
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -45,6 +46,56 @@ namespace BrickBreaker
             form.Controls.Remove(this);
 
             gs.Location = new Point((form.Width - gs.Width) / 2, (form.Height - gs.Height) / 2);
+        }
+
+        private void HighscoreButton_Click(object sender, EventArgs e)
+        {
+            highscoreScreen hs = new highscoreScreen();
+            Form form = this.FindForm();
+
+            form.Controls.Add(hs);
+            form.Controls.Remove(this);
+
+            hs.Location = new Point((form.Width - hs.Width) / 2, (form.Height - hs.Height) / 2);
+        }
+        private void exitButton_Enter(object sender, EventArgs e)
+        {
+            exitButton.BackColor = Color.Gray;
+        }
+
+        private void exitButton_Leave(object sender, EventArgs e)
+        {
+            exitButton.BackColor = Color.Transparent;
+        }
+
+        private void HighscoreButton_Enter(object sender, EventArgs e)
+        {
+            highscoreButton.BackColor = Color.Gray;
+        }
+
+        private void Button1_Enter(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.Gray;
+        }
+
+        private void PlayButton_Enter(object sender, EventArgs e)
+        {
+            playButton.BackColor = Color.Gray;
+        }
+
+        private void PlayButton_Leave(object sender, EventArgs e)
+        {
+            playButton.BackColor = Color.Transparent;
+        }
+
+        private void Button1_Leave(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.Transparent;
+        }
+
+        private void HighscoreButton_Leave(object sender, EventArgs e)
+        {
+            highscoreButton.BackColor = Color.Transparent;
         }
     }
 }
